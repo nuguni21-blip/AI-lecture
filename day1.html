@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>전북 그린바이오 산학연계 AI 실무교육 · 1회차 (11.20) | 교육 자료실</title>
+<meta name="description" content="한국농업기술진흥원 전북 그린바이오 산학연계 AI 실무교육 1회차(2026. 11. 20.) 교육 자료실 — 교육 구성, 프롬프트 30종, 1회차 강의 슬라이드(PDF) 내려받기, 실습 결과물 올리기.">
+<meta name="theme-color" content="#083726">
+<meta property="og:title" content="전북 그린바이오 산학연계 AI 실무교육 · 1회차 | 교육 자료실">
+<meta property="og:description" content="ChatGPT · Gemini · Google Flow · CapCut으로 우리 회사 제품 16–24초 숏폼 영상 1편 완성하기. 프롬프트 30종과 실습자료를 한곳에.">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230e6244'/%3E%3Cpath d='M32 50c0-12 6-20 16-24-2 14-8 22-16 24z' fill='%2387e8bd'/%3E%3Cpath d='M32 50C32 38 26 30 16 26c2 14 8 22 16 24z' fill='%23ffffff' opacity='.85'/%3E%3C/svg%3E">
+</head>
+<body>
+<a class="skip" href="#main">본문 바로가기</a>
+
+<!-- ================= HEADER ================= -->
+<header class="site-head">
+  <div class="head-in">
+    <a class="brand" href="day1.html" aria-label="전북 그린바이오 산학연계 AI 실무교육 · 1회차 자료실 홈">
+      <span class="mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M12 21c0-6.2 3.1-10.4 8.2-12.4C19 15.3 16.4 19.6 12 21z"/><path d="M12 21C12 14.8 8.9 10.6 3.8 8.6 5 15.3 7.6 19.6 12 21z" opacity=".8"/></svg>
+      </span>
+      <span>
+        <b>전북 그린바이오 산학연계 AI 실무교육</b>
+        <span>한국농업기술진흥원 · 1회차 2026. 11. 20.(금)</span>
+      </span>
+    </a>
+
+    <nav class="main-nav" aria-label="주요 메뉴">
+      <a href="#overview" class="nav-link" data-spy="overview">개요</a>
+      <a href="#tools" class="nav-link" data-spy="tools">도구 4곳</a>
+      <a href="#curriculum" class="nav-link" data-spy="curriculum">교육 구성</a>
+      <a href="prompts-day1.html">프롬프트</a>
+      <a href="#check" class="nav-link" data-spy="check">주의사항</a>
+      <a href="#downloads" class="nav-link" data-spy="downloads">자료실</a>
+      <a href="#upload" class="nav-link" data-spy="upload">결과물 올리기</a>
+    </nav>
+
+    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="mobileNav" aria-label="메뉴 열기">
+      <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+  </div>
+  <div class="roundbar">
+    <div class="rb-in">
+      <nav class="rounds" aria-label="회차 선택">
+        <span class="rl">회차</span>
+        <a class="round on" href="day1.html" aria-current="page">1회차<span class="dt">11.20</span></a>
+        <a class="round" href="index.html">2회차<span class="dt">11.27</span></a>
+      </nav>
+      <a class="koea-link" href="https://chatgpt1st.co.kr" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M4 20h16"/><path d="M7 20V9l5-4 5 4v11"/><path d="M10 20v-5h4v5"/></svg>
+        한국강사교육협회 홈페이지<span class="x">↗</span>
+      </a>
+    </div>
+  </div>
+  <nav class="mobile-nav" id="mobileNav" aria-label="모바일 메뉴">
+    <a href="index.html">2회차(11.27) 자료 보기</a>
+    <a href="#overview">개요</a>
+    <a href="#tools">오늘 쓰는 도구 4곳</a>
+    <a href="#curriculum">교육 구성</a>
+    <a href="prompts-day1.html">프롬프트 라이브러리</a>
+    <a href="#check">주의사항</a>
+    <a href="#downloads">자료실</a>
+    <a href="#upload">결과물 올리기</a>
+    <a href="https://chatgpt1st.co.kr" target="_blank" rel="noopener">한국강사교육협회 홈페이지</a>
+  </nav>
+</header>
+
+<!-- ================= 협회 홈페이지 (페이지 맨 앞) ================= -->
+<section class="koea" aria-label="한국강사교육협회 공식 홈페이지">
+  <div class="wrap koea-in">
+    <img class="k-logo" src="assets/koea_logo_white.png" alt="한국강사교육협회">
+    <div class="k-txt">
+      <b>한국강사교육협회 공식 홈페이지</b>
+      <span>chatgpt1st.co.kr · 버튼을 누르거나 QR을 스캔하세요</span>
+    </div>
+    <a class="k-btn" href="https://chatgpt1st.co.kr" target="_blank" rel="noopener">
+      홈페이지 바로가기
+      <svg viewBox="0 0 24 24"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg>
+    </a>
+    <a class="k-qr" href="https://chatgpt1st.co.kr" target="_blank" rel="noopener" aria-label="한국강사교육협회 홈페이지 QR 코드 — 폰 카메라로 스캔">
+      <img src="assets/koea_qr.png" alt="한국강사교육협회 홈페이지(chatgpt1st.co.kr) QR 코드">
+      <span>스캔</span>
+    </a>
+  </div>
+</section>
+
+<main id="main">
+
+<!-- ================= HERO ================= -->
+<section class="hero">
+  <div class="hero-in">
+    <div class="wrap">
+      <div>
+        <span class="chip"><span class="dot"></span>2026. 11. 20.(금) 13:20–17:00 · 한국농업기술진흥원</span>
+        <h1>전북 그린바이오 산학연계<br><em>AI 실무교육</em> · 1회차</h1>
+        <p class="sub">생성형 AI로 <b>우리 회사 제품 16–24초 세로 숏폼 영상 1편</b>을 완성하는 4시간.
+          하실 일은 복사해서 붙여넣기, 그리고 고르기 — 두 가지입니다.</p>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="prompts-day1.html">
+            <svg viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h10"/></svg>
+            프롬프트 라이브러리
+          </a>
+          <a class="btn btn-ghost" href="#downloads">
+            <svg viewBox="0 0 24 24"><path d="M12 4v11"/><path d="m7 11 5 5 5-5"/><path d="M5 20h14"/></svg>
+            실습자료 내려받기
+          </a>
+        </div>
+      </div>
+
+      <dl class="facts">
+        <li>
+          <span class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M8 3v4M16 3v4M3 11h18"/></svg></span>
+          <div><dt>일시</dt><dd>2026. 11. 20.(금) 13:20–17:00</dd></div>
+        </li>
+        <li>
+          <span class="ico"><svg viewBox="0 0 24 24"><path d="M3 21h18"/><path d="M5 21V9l7-5 7 5v12"/><path d="M10 21v-6h4v6"/></svg></span>
+          <div><dt>주최</dt><dd>한국농업기술진흥원</dd></div>
+        </li>
+        <li>
+          <span class="ico"><svg viewBox="0 0 24 24"><path d="m14.7 6.3 3 3L9 18H6v-3z"/><path d="M16 4l4 4"/><path d="M3 21h18"/></svg></span>
+          <div><dt>사용 도구</dt><dd>ChatGPT · Gemini · Google Flow · CapCut</dd></div>
+        </li>
+        <li>
+          <span class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6.5 8-6.5s8 2.5 8 6.5"/></svg></span>
+          <div><dt>강사</dt><dd>하양숙 · 한국강사교육협회 이사</dd></div>
+        </li>
+      </dl>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="wrap">
+      <div class="st"><b>16–24초</b><span>세로 9:16 숏폼 1편</span></div>
+      <div class="st"><b>8초 × 2–3컷</b><span>Flow 클립 단위</span></div>
+      <div class="st"><b>30종</b><span>복사해서 쓰는 프롬프트</span></div>
+      <div class="st"><b>4시간</b><span>1차시 110분 + 2차시 100분</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TODAY'S TOOLS ================= -->
+<section class="section tools-band" id="tools">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Today's tools</div>
+      <h2>오늘 쓰는 도구 4곳 바로가기</h2>
+      <p>수업 전에 미리 해 두실 일은 <b>CapCut PC 버전 설치</b> 하나입니다. 나머지 세 곳은 평소 쓰시는 아이디로 로그인만 해 두세요.</p>
+    </div>
+
+    <div class="tools4">
+      <a class="tool" href="https://chatgpt.com/" target="_blank" rel="noopener">
+        <span class="tn">01</span>
+        <h3>ChatGPT</h3>
+        <p>기획 · 대본 · 장면 이미지</p>
+        <span class="go">바로 열기<svg viewBox="0 0 24 24"><path d="M14 4h5v5"/><path d="M19 4 11 12"/><path d="M19 14v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h4"/></svg></span>
+      </a>
+
+      <a class="tool" href="https://gemini.google.com/" target="_blank" rel="noopener">
+        <span class="tn">02</span>
+        <h3>Gemini</h3>
+        <p>장면 이미지 · AI 음원(Lyria)</p>
+        <span class="go">바로 열기<svg viewBox="0 0 24 24"><path d="M14 4h5v5"/><path d="M19 4 11 12"/><path d="M19 14v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h4"/></svg></span>
+      </a>
+
+      <a class="tool" href="https://labs.google/fx/tools/flow" target="_blank" rel="noopener">
+        <span class="tn">03</span>
+        <h3>Google Flow</h3>
+        <p>사진 1장 → 8초 영상 생성</p>
+        <span class="go">바로 열기<svg viewBox="0 0 24 24"><path d="M14 4h5v5"/><path d="M19 4 11 12"/><path d="M19 14v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h4"/></svg></span>
+      </a>
+
+      <a class="tool pc" href="https://www.capcut.com/tools/desktop-video-editor/" target="_blank" rel="noopener">
+        <span class="tn">04</span>
+        <h3>CapCut PC 버전 설치</h3>
+        <p>컷 붙이기 · 자막 · 1080p 내보내기</p>
+        <span class="badge-dark">PC 설치형(검정 바탕) — 웹 버전 아님</span>
+        <span class="go">설치 페이지 열기<svg viewBox="0 0 24 24"><path d="M12 4v11"/><path d="m7 11 5 5 5-5"/><path d="M5 20h14"/></svg></span>
+      </a>
+    </div>
+
+    <p class="tools-note">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16.5v.5"/></svg>
+      <span><b>CapCut은 꼭 PC 설치형으로.</b> 브라우저에서 열리는 웹 버전은 설치형과 화면이 달라 실습 안내가 어긋납니다.
+        설치 후 바탕화면의 CapCut 아이콘(검정 바탕)으로 열어 주세요.</span>
+    </p>
+
+    <div class="cases" aria-labelledby="casesTitle">
+      <div class="c-head">
+        <div class="eyebrow">Reference</div>
+        <h3 id="casesTitle">참고 숏폼 사례 2편</h3>
+      </div>
+      <p class="c-sub">만들기 전에 30초만 보고 오세요. 누르면 유튜브 숏폼이 <b>새 창에서</b> 바로 열립니다.</p>
+
+      <div class="case-grid">
+        <a class="case" href="https://www.youtube.com/shorts/se_J6qyi6Ig" target="_blank" rel="noopener">
+          <span class="thumb" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 6.5v11l9-5.5z"/></svg></span>
+          <div class="txt">
+            <div class="k">사례 01 · 농촌 일상형</div>
+            <h4>괴산젊은농부</h4>
+            <div class="d">농장의 하루를 짧게 담는 방식 — 첫 장면에서 무엇을 하는지 바로 보여 주는 구성을 눈여겨보세요.</div>
+          </div>
+          <span class="go2">숏폼 열기<svg viewBox="0 0 24 24"><path d="M14 4h5v5"/><path d="M19 4 11 12"/><path d="M19 14v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h4"/></svg></span>
+        </a>
+
+        <a class="case" href="https://www.youtube.com/shorts/EisUIET-8qs" target="_blank" rel="noopener">
+          <span class="thumb" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 6.5v11l9-5.5z"/></svg></span>
+          <div class="txt">
+            <div class="k">사례 02 · 제작 과정형</div>
+            <h4>우도 땅콩버터</h4>
+            <div class="d">재료가 제품이 되는 과정을 보여 주는 구성 — 우리 제품의 만드는 방식을 어떻게 담을지 참고하세요.</div>
+          </div>
+          <span class="go2">숏폼 열기<svg viewBox="0 0 24 24"><path d="M14 4h5v5"/><path d="M19 4 11 12"/><path d="M19 14v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h4"/></svg></span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= OVERVIEW / TAKEAWAYS ================= -->
+<section class="section" id="overview">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">01 / Overview</div>
+      <h2>이번 교육에서 가져가실 것</h2>
+      <p>기획서만 예쁘게 쓰고 끝나는 수업이 아닙니다. 네 시간 뒤 책상 위에 <b>파일 세 개</b>가 남습니다.
+        오늘의 모든 단계는 ‘우리 회사 제품 영상 한 편’으로 모입니다.</p>
+    </div>
+
+    <div class="grid3">
+      <article class="take">
+        <div class="ico-lg"><svg viewBox="0 0 24 24"><rect x="6" y="3" width="12" height="18" rx="3"/><path d="m10 9 5 3-5 3z"/></svg></div>
+        <div class="kicker">Result 01</div>
+        <h3>16–24초 세로 숏폼 영상 1편</h3>
+        <p>Flow가 만든 8초 클립 2–3컷에 자막과 소리를 얹어 1080×1920 mp4로 내보냅니다.
+          첫 3초에 멈춰 보게 만드는 문장이 들어간, 내 채널에 바로 올릴 수 있는 상태.</p>
+        <span class="tagline">mp4 · 1080×1920 · 8초 클립 2–3컷</span>
+      </article>
+
+      <article class="take">
+        <div class="ico-lg"><svg viewBox="0 0 24 24"><path d="M9 18V6l10-2v12"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="16.5" cy="16" r="2.5"/></svg></div>
+        <div class="kicker">Result 02</div>
+        <h3>AI 배경음악 MP3 + 기획서 1장</h3>
+        <p>Gemini Lyria 3.5로 만든 약 1분짜리 연주곡을 MP3로 받아 영상 길이만큼 잘라 씁니다.
+          기획서(P20)에는 다음에 만들 영상 2편 아이디어까지 담깁니다.</p>
+        <span class="tagline">MP3 · A4 기획서 1장</span>
+      </article>
+
+      <article class="take">
+        <div class="ico-lg"><svg viewBox="0 0 24 24"><path d="M4 7a2 2 0 0 1 2-2h5l2 3h5a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"/><path d="M12 12v4M10 14h4"/></svg></div>
+        <div class="kicker">Result 03</div>
+        <h3>나만의 ChatGPT 프로젝트 작업실</h3>
+        <p>회사 정보·고객 1명·쓰지 않을 표현을 프로젝트 지침에 한 번 저장해 두면,
+          다음 주에 방을 열어도 오늘의 맥락이 그대로 살아 있습니다.</p>
+        <span class="tagline">프로젝트 지침 + 맞춤형 지침</span>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CURRICULUM ================= -->
+<section class="section alt" id="curriculum">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">02 / Curriculum</div>
+      <h2>교육 구성</h2>
+      <p>1차시는 <b>기획·대본</b>(ChatGPT), 2차시는 <b>이미지 → 영상 → 음원 → 편집</b>입니다.
+        각 단계에서 쓰는 프롬프트는 <a href="prompts-day1.html">프롬프트 라이브러리</a>에서 번호로 찾아 복사하시면 됩니다.</p>
+    </div>
+
+    <div class="curri">
+      <section class="panel" aria-labelledby="c1">
+        <div class="panel-head">
+          <div>
+            <div class="p-t">Part 1</div>
+            <h3 id="c1">1차시 · 기획과 대본</h3>
+          </div>
+          <span class="p-time">13:20–15:10 · 110분</span>
+        </div>
+        <ol class="flow">
+          <li><span class="t">13:20</span><div><div class="n">과정 안내 · 오늘의 결과물</div><div class="d">10단계 로드맵과 산출물 3종, 운영 규칙 3가지. 오늘 만들 제품 1개를 정합니다.</div></div></li>
+          <li><span class="t">13:30</span><div><div class="n">생성형 AI 최신 동향</div><div class="d">지금 무엇이 달라졌는지 6줄로 확인하고, 현업 사례 영상으로 감을 잡습니다.</div></div></li>
+          <li><span class="t">13:38</span><div><div class="n">ChatGPT 기본 UI · 바뀐 설정창</div><div class="d">설정 → 개인 맞춤 설정 5칸을 둘러보고 <span class="pcode">P01</span> 맞춤형 지침을 저장합니다.</div></div></li>
+          <li><span class="t">13:49</span><div><div class="n">질문법 3종 비교</div><div class="d">그냥 묻기 <span class="pcode">P02</span> · 4요소 질문 <span class="pcode">P03</span> · 되묻게 하기 <span class="pcode">P04</span>를 나란히 놓고 비교합니다.</div></div></li>
+          <li><span class="t">14:01</span><div><div class="n">누구에게, 무슨 말로</div><div class="d">우리 분야 트렌드 <span class="pcode">P05</span> · 시청자 3명 → 1명 <span class="pcode">P06</span> · 빈자리 메시지 <span class="pcode">P09</span>. 검색어·경쟁 비교·반박은 시연으로 보여 드립니다.</div></div></li>
+          <li><span class="t">14:20</span><div><div class="n">ChatGPT 프로젝트 작업실</div><div class="d">지침을 글로 넣고 <span class="pcode">P11</span>, 일반 대화와 효과를 비교합니다 <span class="pcode">P12</span>.</div></div></li>
+          <li><span class="t">14:33</span><div><div class="n">첫 3초 훅과 숏폼 대본</div><div class="d">훅 10개 <span class="pcode">P13</span> → 점수로 고르기 <span class="pcode">P14</span> → 대본 <span class="pcode">P15</span> → 과장 표현 점검 <span class="pcode">P16</span>.</div></div></li>
+        </ol>
+      </section>
+
+      <section class="panel" aria-labelledby="c2">
+        <div class="panel-head">
+          <div>
+            <div class="p-t">Part 2</div>
+            <h3 id="c2">2차시 · 이미지에서 영상까지</h3>
+          </div>
+          <span class="p-time">15:20–17:00 · 100분</span>
+        </div>
+        <ol class="flow">
+          <li><span class="t">15:20</span><div><div class="n">장면 이미지 (＋ Gemini 병행)</div><div class="d">2단 스토리보드 <span class="pcode">P17</span> → 세로 사진 2–3컷 <span class="pcode">P18</span>. ChatGPT가 막히면 Gemini에서 같은 장면을 다시 뽑아 비교합니다 <span class="pcode">G1</span>.</div></div></li>
+          <li><span class="t">15:38</span><div><div class="n">Google Flow — 사진을 8초 영상으로</div><div class="d">출력 개수를 1개로 맞추고, 이미지 1장당 클립 1개. 720p·세로 9:16·8초 = 12크레딧 <span class="pcode">F1</span>. 렌더 대기 중에 컷 이미지를 마무리합니다.</div></div></li>
+          <li><span class="t">16:06</span><div><div class="n">AI 음원 — Gemini Lyria 3.5</div><div class="d">짧은 곡(약 1분)·보컬 없음으로 배경음악을 만들고 <b>MP3로 내려받습니다</b> <span class="pcode">M1</span>.</div></div></li>
+          <li><span class="t">16:16</span><div><div class="n">CapCut — 필수 완주 5단계</div><div class="d">① 한꺼번에 가져오기 → ② 컷 이어 붙이기 → ③ 음악 자르기 → ④ 첫 3초 훅 자막 → ⑤ 1080p mp4 내보내기.</div></div></li>
+          <li><span class="t">16:48</span><div><div class="n">마무리 · 제목 · 기획서 · 공유</div><div class="d">제목·캡션·해시태그 <span class="pcode">P19</span> → 기획서 1장 <span class="pcode">P20</span> → 패들렛에 결과물을 올리고 서로 감상합니다.</div></div></li>
+        </ol>
+      </section>
+    </div>
+
+    <div class="curri-note">
+      <p><b>프롬프트 30종</b> — P01–P20은 ChatGPT에, G1(Gemini 이미지)·F1(Flow)·M1(Gemini 음악)은 각 도구에 붙여넣습니다. 보너스 7종(B1–B3 이미지·V1–V4 제미나이 바이브 코딩)은 시간이 남을 때 씁니다.
+        <code>[ ]</code> 안만 우리 회사 정보로 바꾸면 됩니다.</p>
+      <a class="btn btn-dark btn-sm" href="prompts-day1.html">
+        <svg viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h10"/></svg>
+        프롬프트 전체 보기
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CHECKLIST ================= -->
+<section class="section" id="check">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">03 / Check before posting</div>
+      <h2>AI 결과물, 이것만은 확인하세요</h2>
+      <p>그린바이오·농식품은 <b>효능 표현</b>과 <b>근거</b>가 특히 중요합니다. 오늘 만든 영상은 회사 이름으로 올라가고,
+        AI가 만든 문장이라도 책임은 회사에 있습니다. 게시 전에 이 세 가지만 확인해 주세요.</p>
+    </div>
+
+    <div class="check-grid">
+      <article class="check">
+        <h3><span class="n">1</span>사실 · 근거</h3>
+        <ul>
+          <li>알려주지 않은 수치·인증·출처는 AI가 지어낼 수 있습니다.
+            <small>프롬프트에 “지어내지 말고 [확인 필요]로 표시”를 넣어 두세요.</small></li>
+          <li>연구 결과와 제품 효능은 다릅니다.
+            <small>특허 보유 ≠ 제품 효능 인증. 시험성적서로 증명되는 것만 강점으로 쓰세요.</small></li>
+          <li>AI가 만든 시험·실험 이미지를 실제 검증 자료처럼 쓰지 않습니다.</li>
+        </ul>
+      </article>
+
+      <article class="check">
+        <h3><span class="n">2</span>표시 · 광고 규제</h3>
+        <ul>
+          <li>질병의 예방·치료 효능을 오해하게 하는 표현은 쓸 수 없습니다.
+            <small>일반식품을 건강기능식품처럼 광고하면 문제가 됩니다.</small></li>
+          <li>건강기능식품은 인정받은 기능성만, 화장품의 미백·주름 개선은 심사·보고가 필요합니다.</li>
+          <li>비교·단정 표현은 근거가 있을 때만 씁니다.
+            <small>다른 제품을 부당하게 비교하는 표현도 걸립니다.</small></li>
+        </ul>
+      </article>
+
+      <article class="check">
+        <h3><span class="n">3</span>자료 · 보안</h3>
+        <ul>
+          <li>비공개 연구자료·영업비밀·거래처 단가를 승인 없이 외부 AI에 입력하지 않습니다.</li>
+          <li>개인정보는 가명·범주화합니다.
+            <small>“성환읍 ○○농가” → “A농가”, 전화번호·주소는 삭제.</small></li>
+          <li>AI 이미지·후기 문구를 점검합니다.
+            <small>실제 제품과 다른 모양·글자, AI가 지어낸 후기를 실제 구매 후기처럼 쓰지 않기.</small></li>
+        </ul>
+      </article>
+    </div>
+
+    <div class="banned">
+      <span class="lb">쓰지 않는 표현</span>
+      <span>치료</span><span>100%</span><span>최고</span><span>완벽</span><span>부작용 없음</span><span>즉시 효과</span><span>근거 없는 수치</span>
+    </div>
+    <p class="check-note">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16.5v.5"/></svg>
+      <span>AI의 점검(P16)은 <b>표현 점검</b>이지 법률 검토가 아닙니다. 판단이 어려운 것은 ‘확인 필요’로 남기고,
+        최종 확인은 회사(또는 담당 전문가)가 합니다. 세부 기준은 업종마다 다릅니다.</span>
+    </p>
+  </div>
+</section>
+
+<!-- ================= DOWNLOADS ================= -->
+<section class="section alt" id="downloads">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">04 / Download</div>
+      <h2>실습자료 내려받기</h2>
+      <p>바로 보기는 새 창으로 열리고, 내려받기는 내 기기에 저장됩니다. 교육이 끝난 뒤에도 다시 보실 수 있습니다.</p>
+    </div>
+
+    <div class="dl-grid">
+      <article class="dl">
+        <div class="dl-top">
+          <span class="fmt pdf">PDF</span>
+          <div>
+            <h3>1회차 강의 슬라이드</h3>
+            <div class="meta">1.1 MB · PDF · 48장</div>
+          </div>
+        </div>
+        <p>교육 현장에서 띄운 1회차 강의 슬라이드 48장입니다. 휴대폰·PC 어디서나 바로 열려, 설치 없이 복습하실 수 있습니다.</p>
+        <div class="acts">
+          <a class="btn btn-line" href="files/농진원_1120_1회차_강의슬라이드.pdf" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24"><path d="M14 4h5v5"/><path d="M19 4 11 12"/><path d="M19 14v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h4"/></svg>
+            바로 보기
+          </a>
+          <a class="btn btn-dark" href="files/농진원_1120_1회차_강의슬라이드.pdf" download>
+            <svg viewBox="0 0 24 24"><path d="M12 4v11"/><path d="m7 11 5 5 5-5"/><path d="M5 20h14"/></svg>
+            내려받기
+          </a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= UPLOAD ================= -->
+<section class="section" id="upload">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">05 / Upload</div>
+      <h2>실습 결과물 올리기</h2>
+      <p>오늘 만든 영상·기획서·MP3를 패들렛에 올려 주세요. 같은 자리에서 옆자리 결과물도 함께 볼 수 있습니다.</p>
+    </div>
+
+    <div class="upload-wrap">
+      <div class="steps">
+        <div class="step">
+          <span class="no">1</span>
+          <div>
+            <h3>＋ 버튼 누르기</h3>
+            <p>게시판 오른쪽 아래(휴대폰에서는 화면 아래)의 <b>＋ 버튼</b>을 누릅니다.</p>
+          </div>
+        </div>
+        <div class="step">
+          <span class="no">2</span>
+          <div>
+            <h3>닉네임 적기</h3>
+            <p>제목 칸에 <b>회사명 또는 닉네임</b>을 적습니다. 같은 이름이 보이면 옆자리 결과물을 찾기 쉽습니다.</p>
+          </div>
+        </div>
+        <div class="step">
+          <span class="no">3</span>
+          <div>
+            <h3>자료 업로드 → 게시</h3>
+            <p>영상(mp4)·기획서·음원(mp3)을 올리고 <b>게시</b>를 누릅니다. 영상은 파일이 크면 링크로 올려도 됩니다.</p>
+          </div>
+        </div>
+      </div>
+
+      <aside class="padlet">
+        <div class="eyebrow">Padlet</div>
+        <h3>우리 반 결과물 게시판</h3>
+        <p>패들렛은 교육생 모두가 볼 수 있는 공간입니다. 올린 뒤 서로 감상하며 무엇이 통했는지 이야기해 봅니다.</p>
+        <a class="btn btn-primary" href="https://padlet.com/nuguni21/_ai-pczyxuz2qqmxjneq" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M14 4h5v5"/><path d="M19 4 11 12"/><path d="M19 14v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h4"/></svg>
+          패들렛 새 창으로 열기
+        </a>
+        <div class="warn"><b>올리기 전에 확인해 주세요.</b> 개인정보 · 비공개 연구자료 · 거래처 단가 · 영업비밀이 들어 있지 않은지 확인한 뒤 올려 주세요.</div>
+      </aside>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer class="foot">
+  <div class="wrap">
+    <div class="fin">
+      <div>
+        <b>전북 그린바이오 산학연계 AI 실무교육 · 1회차</b>
+        <div style="margin-top:6px">2026. 11. 20.(금) 13:20–17:00 · 한국농업기술진흥원</div>
+        <div style="margin-top:2px">강사 하양숙 · 한국강사교육협회 이사</div>
+        <div style="margin-top:10px">
+          <a class="koea-foot" href="https://chatgpt1st.co.kr" target="_blank" rel="noopener">한국강사교육협회 홈페이지 · chatgpt1st.co.kr ↗</a>
+        </div>
+      </div>
+      <nav class="fl" aria-label="바닥글 메뉴">
+        <a href="index.html">2회차(11.27) 자료</a>
+        <a href="#curriculum">교육 구성</a>
+        <a href="prompts-day1.html">프롬프트 라이브러리</a>
+        <a href="#downloads">자료실</a>
+        <a href="#upload">결과물 올리기</a>
+      </nav>
+    </div>
+    <div class="crt">
+      <span>2회차 · 2026. 11. 27.(금) — 피클 · 클로드+vStory · 제미나이로 이어집니다. 위 <b>회차</b>에서 2회차 자료를 보세요.</span>
+      <span>교육 자료실 · ChatGPT · Gemini · Google Flow · CapCut</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/app.js"></script>
+</body>
+</html>
