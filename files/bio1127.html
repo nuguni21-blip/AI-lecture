@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>[회사명] 숏폼·홍보 문구 생성기</title>
+  <!-- Tailwind CSS 로드 -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Noto Sans KR & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Noto Sans KR"', 'Inter', 'sans-serif'],
+          },
+          colors: {
+            forest: {
+              50: '#F2F7F4',
+              100: '#E0ECE5',
+              200: '#C2D9CC',
+              600: '#2D6A4F',
+              700: '#1B4332',
+              800: '#133024',
+              900: '#0B1D16',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* 기본 가독성 및 모바일 가로 스크롤 방지 */
+    html, body {
+      max-width: 100%;
+      overflow-x: hidden;
+      background-color: #ffffff;
+      color: #111827;
+      word-break: keep-all;
+    }
+    /* 커스텀 라디오 버튼 선택 스타일 */
+    .option-radio:checked + label {
+      background-color: #1B4332;
+      color: #ffffff;
+      border-color: #1B4332;
+      font-weight: 700;
+    }
+    /* 부드러운 스크롤 */
+    html {
+      scroll-behavior: smooth;
+    }
+  </style>
+</head>
+<body class="bg-white text-gray-900 antialiased selection:bg-forest-100 selection:text-forest-800">
+
+  <!-- 상단 헤더 영역 -->
+  <header class="border-b border-gray-200 bg-white sticky top-0 z-30">
+    <div class="max-w-3xl mx-auto px-4 py-4 sm:py-5">
+      <div class="flex items-center justify-between gap-2 mb-1">
+        <span id="headerCompanyBadge" class="inline-flex items-center gap-1.5 text-sm sm:text-base font-semibold text-forest-700 bg-forest-50 px-3 py-1 rounded-full border border-forest-200">
+          <svg class="w-4 h-4 text-forest-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
+          </svg>
+          <span id="headerCompanyName">[회사명]</span> 홍보 도우미
+        </span>
+        <span class="text-xs sm:text-sm text-gray-500 font-medium">서버 저장 없음 · 즉시 생성</span>
+      </div>
+      <h1 class="text-xl sm:text-2xl md:text-3xl font-extrabold text-gray-900 tracking-tight leading-snug mt-2">
+        <span id="headerTitleCompany" class="text-forest-700">[회사명]</span> 숏폼·홍보 문구 생성기
+      </h1>
+    </div>
+  </header>
+
+  <!-- 메인 컨테이너 -->
+  <main class="max-w-3xl mx-auto px-4 py-6 sm:py-8 space-y-8">
+
+    <!-- 안내 및 예시 채우기 배너 -->
+    <section class="bg-forest-50 border border-forest-200 rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div>
+        <p class="text-base sm:text-lg font-bold text-forest-800">입력이 막막하신가요?</p>
+        <p class="text-sm sm:text-base text-gray-700 mt-0.5">버튼을 누르면 회사 및 제품 홍보 예시가 자동으로 채워집니다.</p>
+      </div>
+      <button type="button" id="fillSampleBtn" onclick="fillSampleData()"
+        class="w-full sm:w-auto shrink-0 inline-flex items-center justify-center gap-2 bg-white hover:bg-forest-100 text-forest-700 font-bold text-base px-5 py-3 rounded-xl border-2 border-forest-700 transition-colors shadow-sm cursor-pointer">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+        </svg>
+        예시 채우기
+      </button>
+    </section>
+
+    <!-- 알림 메시지 박스 (alert 대체용) -->
+    <div id="toastMessage" class="hidden fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-gray-900 text-white text-base font-medium px-6 py-3.5 rounded-xl shadow-xl border border-gray-700 transition-opacity duration-300">
+      메시지 내용
+    </div>
+
+    <!-- 입력 화면 폼 -->
+    <form id="promoForm" class="space-y-6 bg-white border border-gray-200 rounded-2xl p-5 sm:p-7 shadow-sm" onsubmit="handleGenerate(event)">
+      
+      <!-- 1. 업종/분야 -->
+      <div>
+        <label for="industry" class="block text-base sm:text-lg font-bold text-gray-900 mb-2">
+          1. 업종 / 분야 <span class="text-forest-600 text-sm font-normal">*</span>
+        </label>
+        <input type="text" id="industry" name="industry"
+          placeholder="예: 친환경 생활용품, IT 소프트웨어, 건강기능식품, B2B 제조"
+          class="w-full text-base sm:text-lg px-4 py-3.5 rounded-xl border border-gray-300 placeholder-gray-400 focus:outline-none focus:border-forest-700 focus:ring-2 focus:ring-forest-200 transition">
+      </div>
+
+      <!-- 2. 회사명 -->
+      <div>
+        <label for="companyName" class="block text-base sm:text-lg font-bold text-gray-900 mb-2">
+          2. 회사명 <span class="text-forest-600 text-sm font-normal">*</span>
+        </label>
+        <input type="text" id="companyName" name="companyName"
+          placeholder="예: (주)그린리프컴퍼니"
+          oninput="updateHeaderCompany(this.value)"
+          class="w-full text-base sm:text-lg px-4 py-3.5 rounded-xl border border-gray-300 placeholder-gray-400 focus:outline-none focus:border-forest-700 focus:ring-2 focus:ring-forest-200 transition">
+      </div>
+
+      <!-- 3. 제품·서비스명 -->
+      <div>
+        <label for="productName" class="block text-base sm:text-lg font-bold text-gray-900 mb-2">
+          3. 제품 · 서비스명 <span class="text-forest-600 text-sm font-normal">*</span>
+        </label>
+        <input type="text" id="productName" name="productName"
+          placeholder="예: 에코퓨어 리필 스테이션"
+          class="w-full text-base sm:text-lg px-4 py-3.5 rounded-xl border border-gray-300 placeholder-gray-400 focus:outline-none focus:border-forest-700 focus:ring-2 focus:ring-forest-200 transition">
+      </div>
+
+      <!-- 4. 핵심 특징 3가지 -->
+      <div>
+        <label class="block text-base sm:text-lg font-bold text-gray-900 mb-2">
+          4. 핵심 특징 3가지 <span class="text-gray-500 text-sm font-normal">(확인된 사실만 적어주세요)</span>
+        </label>
+        <div class="space-y-3">
+          <input type="text" id="feature1" name="feature1"
+            placeholder="특징 1 예: 불필요한 플라스틱 포장재를 줄인 리필 방식"
+            class="w-full text-base sm:text-lg px-4 py-3.5 rounded-xl border border-gray-300 placeholder-gray-400 focus:outline-none focus:border-forest-700 focus:ring-2 focus:ring-forest-200 transition">
+          <input type="text" id="feature2" name="feature2"
+            placeholder="특징 2 예: 식물 유래 세정 성분으로 순한 사용감"
+            class="w-full text-base sm:text-lg px-4 py-3.5 rounded-xl border border-gray-300 placeholder-gray-400 focus:outline-none focus:border-forest-700 focus:ring-2 focus:ring-forest-200 transition">
+          <input type="text" id="feature3" name="feature3"
+            placeholder="특징 3 예: 10초 만에 간편하게 교체 가능한 전용 용기"
+            class="w-full text-base sm:text-lg px-4 py-3.5 rounded-xl border border-gray-300 placeholder-gray-400 focus:outline-none focus:border-forest-700 focus:ring-2 focus:ring-forest-200 transition">
+        </div>
+      </div>
+
+      <!-- 5. 주요 고객 -->
+      <div>
+        <label for="targetAudience" class="block text-base sm:text-lg font-bold text-gray-900 mb-2">
+          5. 주요 고객
+        </label>
+        <input type="text" id="targetAudience" name="targetAudience"
+          placeholder="예: 가치 소비를 실천하는 2040 1인 가구 및 직장인"
+          class="w-full text-base sm:text-lg px-4 py-3.5 rounded-xl border border-gray-300 placeholder-gray-400 focus:outline-none focus:border-forest-700 focus:ring-2 focus:ring-forest-200 transition">
+      </div>
+
+      <!-- 2. 회사명 -->
+      <div>
+        <label for="companyName" class="block text-base sm:text-lg font-bold text-gray-900 mb-2">
+          2. 회사명 <span class="text-forest-600 text-sm font-normal">*</span>
+        </label>
+        <input type="text" id="companyName" name="companyName"
+          placeholder="예: (주)그린바이오랩"
+          oninput="updateHeaderCompany(this.value)"
+          class="w-full text-base sm:text-lg px-4 py-3.5 rounded-xl border border-gray-300 placeholder-gray-400 focus:outline-none focus:border-forest-700 focus:ring-2 focus:ring-forest-200 transition">
+      </div>
+
+      <!-- 3. 제품·서비스명 -->
+      <div>
+        <label for="productName" class="block text-base sm:text-lg font-bold text-gray-900 mb-2">
+          3. 제품 · 서비스명 <span class="text-forest-600 text-sm font-normal">*</span>
+        </label>
+        <input type="text" id="productName" name="productName"
+          placeholder="예: 피토셀 리페어 앰플"
+          class="w-full text-base sm:text-lg px-4 py-3.5 rounded-xl border border-gray-300 placeholder-gray-400 focus:outline-none focus:border-forest-700 focus:ring-2 focus:ring-forest-200 transition">
+      </div>
+
+      <!-- 4. 핵심 특징 3가지 -->
+      <div>
+        <label class="block text-base sm:text-lg font-bold text-gray-900 mb-2">
+          4. 핵심 특징 3가지 <span class="text-gray-500 text-sm font-normal">(확인된 사실만 적어주세요)</span>
+        </label>
+        <div class="space-y-3">
+          <input type="text" id="feature1" name="feature1"
+            placeholder="특징 1 예: 국내산 병풀 저온 추출 원료 사용"
+            class="w-full text-base sm:text-lg px-4 py-3.5 rounded-xl border border-gray-300 placeholder-gray-400 focus:outline-none focus:border-forest-700 focus:ring-2 focus:ring-forest-200 transition">
+          <input type="text" id="feature2" name="feature2"
+            placeholder="특징 2 예: 식물성 마이크로바이옴 발효 공법 적용"
+            class="w-full text-base sm:text-lg px-4 py-3.5 rounded-xl border border-gray-300 placeholder-gray-400 focus:outline-none focus:border-forest-700 focus:ring-2 focus:ring-forest-200 transition">
+          <input type="text" id="feature3" name="feature3"
+            placeholder="특징 3 예: 피부 저자극 테스트 완료"
+            class="w-full text-base sm:text-lg px-4 py-3.5 rounded-xl border border-gray-300 placeholder-gray-400 focus:outline-none focus:border-forest-700 focus:ring-2 focus:ring-forest-200 transition">
+        </div>
+      </div>
+
+      <!-- 5. 주요 고객 -->
+      <div>
+        <label for="targetAudience" class="block text-base sm:text-lg font-bold text-gray-900 mb-2">
+          5. 주요 고객
+        </label>
+        <input type="text" id="targetAudience" name="targetAudience"
+          placeholder="예: 민감성 피부로 고민하는 2040 직장인"
+          class="w-full text-base sm:text-lg px-4 py-3.5 rounded-xl border border-gray-300 placeholder-gray-400 focus:outline-none focus:border-forest-700 focus:ring-2 focus:ring-forest-200 transition">
+      </div>
+
+      <!-- 6. 홍보 목적 -->
+      <div>
+        <span class="block text-base sm:text-lg font-bold text-gray-900 mb-2.5">
+          6. 홍보 목적
+        </span>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+          <div>
+            <input type="radio" id="purpose_product" name="purpose" value="제품 홍보" class="sr-only option-radio" checked>
+            <label for="purpose_product" class="block text-center text-base py-3 px-2 rounded-xl border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 cursor-pointer transition select-none">
+              제품 홍보
+            </label>
+          </div>
+          <div>
+            <input type="radio" id="purpose_company" name="purpose" value="회사 소개" class="sr-only option-radio">
+            <label for="purpose_company" class="block text-center text-base py-3 px-2 rounded-xl border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 cursor-pointer transition select-none">
+              회사 소개
+            </label>
+          </div>
+          <div>
+            <input type="radio" id="purpose_expo" name="purpose" value="박람회·영업" class="sr-only option-radio">
+            <label for="purpose_expo" class="block text-center text-base py-3 px-2 rounded-xl border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 cursor-pointer transition select-none">
+              박람회·영업
+            </label>
+          </div>
+          <div>
+            <input type="radio" id="purpose_recruit" name="purpose" value="채용" class="sr-only option-radio">
+            <label for="purpose_recruit" class="block text-center text-base py-3 px-2 rounded-xl border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 cursor-pointer transition select-none">
+              채용
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- 7. 말투 -->
+      <div>
+        <span class="block text-base sm:text-lg font-bold text-gray-900 mb-2.5">
+          7. 말투
+        </span>
+        <div class="grid grid-cols-3 gap-2.5">
+          <div>
+            <input type="radio" id="tone_plain" name="tone" value="담백하게" class="sr-only option-radio">
+            <label for="tone_plain" class="block text-center text-base py-3 px-2 rounded-xl border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 cursor-pointer transition select-none">
+              담백하게
+            </label>
+          </div>
+          <div>
+            <input type="radio" id="tone_warm" name="tone" value="따뜻하게" class="sr-only option-radio">
+            <label for="tone_warm" class="block text-center text-base py-3 px-2 rounded-xl border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 cursor-pointer transition select-none">
+              따뜻하게
+            </label>
+          </div>
+          <div>
+            <input type="radio" id="tone_pro" name="tone" value="전문적으로" class="sr-only option-radio" checked>
+            <label for="tone_pro" class="block text-center text-base py-3 px-2 rounded-xl border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 cursor-pointer transition select-none">
+              전문적으로
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- 만들기 버튼 -->
+      <div class="pt-2">
+        <button type="submit"
+          class="w-full bg-forest-700 hover:bg-forest-800 active:bg-forest-900 text-white font-extrabold text-xl py-4 px-6 rounded-2xl shadow-md hover:shadow-lg transition-all cursor-pointer flex items-center justify-center gap-2">
+          <span>만들기</span>
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+          </svg>
+        </button>
+      </div>
+    </form>
+
+    <!-- 결과 출력 영역 (초기에는 숨김) -->
+    <div id="resultsContainer" class="hidden space-y-8 pt-2 pb-12">
+      
+      <!-- 결과 상단 구분선 및 안내 -->
+      <div class="border-t-2 border-forest-700 pt-6 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+        <h2 class="text-2xl font-extrabold text-forest-800">생성된 홍보 콘텐츠</h2>
+        <span class="text-sm text-gray-600">※ 확인되지 않은 인증·수치는 포함되지 않았습니다.</span>
+      </div>
+
+      <!-- [결과 4] 한 줄 요약 (핵심 훅 문장이므로 최상단에 눈에 띄게 배치) -->
+      <section class="bg-forest-50 border-2 border-forest-700 rounded-2xl p-5 sm:p-6 shadow-sm">
+        <div class="flex items-center justify-between gap-3 mb-3">
+          <div class="flex items-center gap-2">
+            <span class="bg-forest-700 text-white text-xs sm:text-sm font-bold px-2.5 py-1 rounded-lg">결과 4</span>
+            <h3 class="text-lg sm:text-xl font-bold text-gray-900">한 줄 요약 (12자 안팎 훅 문장)</h3>
+          </div>
+          <button type="button" onclick="copyElementText('result4Text', this)"
+            class="copy-btn shrink-0 bg-white hover:bg-forest-100 text-forest-700 border border-forest-700 font-bold text-sm sm:text-base px-4 py-2 rounded-xl transition cursor-pointer">
+            복사
+          </button>
+        </div>
+        <div class="bg-white rounded-xl p-4 sm:p-5 border border-forest-200 text-center">
+          <p id="result4Text" class="text-2xl sm:text-3xl font-extrabold text-forest-800 tracking-tight"></p>
+        </div>
+      </section>
+
+      <!-- [결과 1] 30초 숏폼 대본 -->
+      <section class="bg-white border border-gray-300 rounded-2xl p-5 sm:p-6 shadow-sm">
+        <div class="flex items-center justify-between gap-3 mb-4">
+          <div class="flex items-center gap-2">
+            <span class="bg-forest-700 text-white text-xs sm:text-sm font-bold px-2.5 py-1 rounded-lg">결과 1</span>
+            <h3 class="text-lg sm:text-xl font-bold text-gray-900">30초 숏폼 대본 (4장면)</h3>
+          </div>
+          <button type="button" onclick="copyScriptTable(this)"
+            class="copy-btn shrink-0 bg-forest-700 hover:bg-forest-800 text-white font-bold text-sm sm:text-base px-4 py-2 rounded-xl transition cursor-pointer">
+            복사
+          </button>
+        </div>
+
+        <!-- 모바일에서도 깨지지 않는 반응형 테이블 -->
+        <div class="overflow-x-auto rounded-xl border border-gray-200">
+          <table id="scriptTable" class="w-full text-left border-collapse">
+            <thead>
+              <tr class="bg-forest-50 text-forest-900 border-b border-gray-200 text-sm sm:text-base">
+                <th class="py-3 px-3 sm:px-4 font-bold whitespace-nowrap w-24">장면</th>
+                <th class="py-3 px-3 sm:px-4 font-bold min-w-[140px]">화면 설명</th>
+                <th class="py-3 px-3 sm:px-4 font-bold min-w-[130px]">자막</th>
+                <th class="py-3 px-3 sm:px-4 font-bold min-w-[160px]">내레이션</th>
+              </tr>
+            </thead>
+            <tbody id="scriptTableBody" class="divide-y divide-gray-200 text-base text-gray-800 leading-relaxed">
+              <!-- JS로 4개 장면 삽입 -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- [결과 2] 이미지 생성 프롬프트 4개 -->
+      <section class="bg-white border border-gray-300 rounded-2xl p-5 sm:p-6 shadow-sm">
+        <div class="mb-4">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="bg-forest-700 text-white text-xs sm:text-sm font-bold px-2.5 py-1 rounded-lg">결과 2</span>
+            <h3 class="text-lg sm:text-xl font-bold text-gray-900">이미지 생성 프롬프트 4개</h3>
+          </div>
+          <p class="text-sm sm:text-base text-gray-600">컷마다 개별 복사할 수 있습니다. (9:16 세로 비율, 글자·로고 제외 조건 자동 포함)</p>
+        </div>
+
+        <div id="imagePromptsContainer" class="grid grid-cols-1 gap-4">
+          <!-- JS로 4개 카드 삽입 -->
+        </div>
+      </section>
+
+      <!-- [결과 3] SNS 문구 -->
+      <section class="bg-white border border-gray-300 rounded-2xl p-5 sm:p-6 shadow-sm">
+        <div class="flex items-center justify-between gap-3 mb-4">
+          <div class="flex items-center gap-2">
+            <span class="bg-forest-700 text-white text-xs sm:text-sm font-bold px-2.5 py-1 rounded-lg">결과 3</span>
+            <h3 class="text-lg sm:text-xl font-bold text-gray-900">SNS 홍보 문구</h3>
+          </div>
+          <button type="button" onclick="copyElementText('result3FullText', this)"
+            class="copy-btn shrink-0 bg-forest-700 hover:bg-forest-800 text-white font-bold text-sm sm:text-base px-4 py-2 rounded-xl transition cursor-pointer">
+            복사
+          </button>
+        </div>
+
+        <div id="result3FullText" class="space-y-5 bg-gray-50 rounded-xl p-4 sm:p-5 border border-gray-200 text-base sm:text-lg leading-relaxed">
+          <!-- 제목 3개 -->
+          <div>
+            <h4 class="text-sm font-bold text-forest-700 uppercase tracking-wider mb-2">[추천 제목 3개]</h4>
+            <ul id="snsTitlesList" class="space-y-1.5 font-bold text-gray-900"></ul>
+          </div>
+
+          <hr class="border-gray-200">
+
+          <!-- 본문 1개 -->
+          <div>
+            <h4 class="text-sm font-bold text-forest-700 uppercase tracking-wider mb-2">[본문]</h4>
+            <div id="snsBodyText" class="whitespace-pre-line text-gray-800"></div>
+          </div>
+
+          <hr class="border-gray-200">
+
+          <!-- 해시태그 10개 -->
+          <div>
+            <h4 class="text-sm font-bold text-forest-700 uppercase tracking-wider mb-2">[해시태그 10개]</h4>
+            <p id="snsHashtagsText" class="text-forest-700 font-medium break-words"></p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="border-t border-gray-200 py-6 text-center text-sm text-gray-500">
+    <p>홍보 담당자를 위한 브라우저 전용 숏폼·홍보 문구 생성기</p>
+  </footer>
+
+  <script>
+    /**
+     * 한국어 받침 유무에 따른 조사 자동 선택 도우미
+     * @param {string} word - 대상 단어
+     * @param {string} josaPair - '이/가', '을/를', '은/는', '으로/로'
+     */
+    function attachJosa(word, josaPair) {
+      if (!word) return '';
+      const [withBatchim, withoutBatchim] = josaPair.split('/');
+      const lastChar = word.trim().slice(-1);
+      const code = lastChar.charCodeAt(0);
+
+      // 한글 음절 범위 (가 ~ 힣)
+      if (code >= 0xAC00 && code <= 0xD7A3) {
+        const jongseong = (code - 0xAC00) % 28;
+        if (josaPair === '으로/로') {
+          // ㄹ 받침(8)은 '로' 사용
+          return word + (jongseong === 0 || jongseong === 8 ? withoutBatchim : withBatchim);
+        }
+        return word + (jongseong === 0 ? withoutBatchim : withBatchim);
+      }
+      // 숫자 또는 영문 끝자리 간이 판별
+      if (/[013678lmnrLMNR]/.test(lastChar)) {
+        return word + withBatchim;
+      }
+      return word + withoutBatchim;
+    }
+
+    /**
+     * 상단 헤더 및 타이틀의 [회사명] 실시간 업데이트
+     */
+    function updateHeaderCompany(val) {
+      const badgeSpan = document.getElementById('headerCompanyName');
+      const titleSpan = document.getElementById('headerTitleCompany');
+      const trimmed = val.trim();
+      const display = trimmed ? trimmed : '[회사명]';
+      badgeSpan.textContent = display;
+      titleSpan.textContent = display;
+      document.title = `${display} 숏폼·홍보 문구 생성기`;
+    }
+
+    /**
+     * 토스트 메시지 표시 (alert 대체)
+     */
+    let toastTimer = null;
+    function showToast(msg) {
+      const toast = document.getElementById('toastMessage');
+      toast.textContent = msg;
+      toast.classList.remove('hidden');
+      toast.classList.add('opacity-100');
+
+      if (toastTimer) clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        toast.classList.add('hidden');
+      }, 2500);
+    }
+
+    /**
+     * [예시 채우기] 버튼 동작
+     * 업종, 회사명, 제품명, 핵심 특징, 주요 고객, 홍보 목적, 말투 예시를 채워줍니다.
+     */
+    function fillSampleData() {
+      document.getElementById('industry').value = '친환경 생활용품 및 리필 솔루션';
+      document.getElementById('companyName').value = '(주)그린리프컴퍼니';
+      document.getElementById('productName').value = '에코퓨어 리필 스테이션';
+      document.getElementById('feature1').value = '불필요한 플라스틱 포장재를 줄인 리필 방식';
+      document.getElementById('feature2').value = '식물 유래 세정 성분으로 순한 사용감';
+      document.getElementById('feature3').value = '10초 만에 간편하게 교체 가능한 전용 용기';
+      document.getElementById('targetAudience').value = '가치 소비를 실천하는 2040 직장인';
+
+      // 홍보 목적: 제품 홍보
+      document.getElementById('purpose_product').checked = true;
+      // 말투: 전문적으로
+      document.getElementById('tone_pro').checked = true;
+
+      // 상단 회사명 동기화
+      updateHeaderCompany('(주)그린리프컴퍼니');
+
+      showToast('예시 정보가 입력되었습니다. 아래 [만들기]를 눌러보세요!');
+    }
+
+    /**
+     * 클립보드 복사 유틸리티 (iFrame 호환 execCommand 우선 및 fallback 지원)
+     * 클릭 시 버튼 텍스트를 2초간 '복사됨'으로 변경
+     */
+    function copyToClipboard(text, btnElement) {
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      textarea.style.position = 'fixed';
+      textarea.style.opacity = '0';
+      document.body.appendChild(textarea);
+      textarea.select();
+
+      let success = false;
+      try {
+        success = document.execCommand('copy');
+      } catch (err) {
+        success = false;
+      }
+      document.body.removeChild(textarea);
+
+      if (!success && navigator.clipboard) {
+        navigator.clipboard.writeText(text).catch(() => {});
+      }
+
+      // 버튼 상태 2초간 '복사됨' 변경
+      if (btnElement) {
+        const originalText = btnElement.dataset.originalText || btnElement.textContent.trim();
+        btnElement.dataset.originalText = originalText;
+        btnElement.textContent = '복사됨';
+        btnElement.classList.add('ring-2', 'ring-forest-600');
+
+        if (btnElement.copyTimeout) clearTimeout(btnElement.copyTimeout);
+        btnElement.copyTimeout = setTimeout(() => {
+          btnElement.textContent = originalText;
+          btnElement.classList.remove('ring-2', 'ring-forest-600');
+        }, 2000);
+      }
+    }
+
+    /**
+     * 특정 ID 요소의 텍스트 복사
+     */
+    function copyElementText(elementId, btnElement) {
+      const el = document.getElementById(elementId);
+      if (!el) return;
+      copyToClipboard(el.innerText.trim(), btnElement);
+    }
+
+    /**
+     * [결과 1] 숏폼 대본 표를 깔끔한 텍스트 형식으로 변환해 복사
+     */
+    function copyScriptTable(btnElement) {
+      const rows = document.querySelectorAll('#scriptTableBody tr');
+      let formatted = '[30초 숏폼 대본]\n\n';
+      rows.forEach(row => {
+        const cols = row.querySelectorAll('td');
+        if (cols.length === 4) {
+          formatted += `■ ${cols[0].innerText.trim()}\n`;
+          formatted += `- 화면: ${cols[1].innerText.trim()}\n`;
+          formatted += `- 자막: ${cols[2].innerText.trim()}\n`;
+          formatted += `- 내레이션: ${cols[3].innerText.trim()}\n\n`;
+        }
+      });
+      copyToClipboard(formatted.trim(), btnElement);
+    }
+
+    /**
+     * 말투(tone)에 따른 문장 종결어미 및 어휘 변환 도우미
+     */
+    function applyTone(tone, plainText, warmText, proText) {
+      if (tone === '담백하게') return plainText;
+      if (tone === '따뜻하게') return warmText;
+      return proText; // 전문적으로
+    }
+
+    /**
+     * 폼 제출 및 콘텐츠 생성 메인 핸들러
+     */
+    function handleGenerate(event) {
+      event.preventDefault();
+
+      // 입력값 수집 (비어 있을 경우 기본값 또는 안내)
+      const industry = document.getElementById('industry').value.trim();
+      const company = document.getElementById('companyName').value.trim();
+      const product = document.getElementById('productName').value.trim();
+      const f1 = document.getElementById('feature1').value.trim();
+      const f2 = document.getElementById('feature2').value.trim();
+      const f3 = document.getElementById('feature3').value.trim();
+      const target = document.getElementById('targetAudience').value.trim();
+      const purpose = document.querySelector('input[name="purpose"]:checked').value;
+      const tone = document.querySelector('input[name="tone"]:checked').value;
+
+      // 필수 최소 입력 확인
+      if (!industry && !company && !product) {
+        showToast('내용을 입력하거나 상단의 [예시 채우기] 버튼을 먼저 눌러주세요.');
+        return;
+      }
+
+      // 안전한 기본 대체 텍스트 (입력되지 않은 칸 처리 - 허위 수치/인증 절대 금지)
+      const safeIndustry = industry || '혁신 비즈니스';
+      const safeCompany = company || '당사';
+      const safeProduct = product || '신규 솔루션';
+      const safeTarget = target || '더 나은 일상을 원하는 고객';
+      const feat1 = f1 || '핵심 기능의 직관적인 설계';
+      const feat2 = f2 || '사용자 중심의 검증된 품질';
+      const feat3 = f3 || '간편하고 효율적인 사용 경험';
+
+      // 1. [결과 4] 한 줄 요약 (12자 안팎 훅 문장) 생성
+      const hookLine = generateHookLine(purpose, tone, safeProduct, safeCompany);
+      document.getElementById('result4Text').textContent = hookLine;
+
+      // 2. [결과 1] 30초 숏폼 대본 (4장면) 생성
+      const scenes = generateShortFormScenes({
+        industry: safeIndustry,
+        company: safeCompany,
+        product: safeProduct,
+        feat1, feat2, feat3,
+        target: safeTarget,
+        purpose, tone
+      });
+      renderScriptTable(scenes);
+
+      // 3. [결과 2] 이미지 생성 프롬프트 4개 생성
+      const prompts = generateImagePrompts({
+        industry: safeIndustry,
+        company: safeCompany,
+        product: safeProduct,
+        feat1, feat2, feat3,
+        purpose
+      });
+      renderImagePrompts(prompts);
+
+      // 4. [결과 3] SNS 문구 (제목 3개, 본문 1개, 해시태그 10개) 생성
+      const snsData = generateSnsContent({
+        industry: safeIndustry,
+        company: safeCompany,
+        product: safeProduct,
+        feat1, feat2, feat3,
+        target: safeTarget,
+        purpose, tone
+      });
+      renderSnsContent(snsData);
+
+      // 결과 영역 표시 및 부드러운 스크롤 이동
+      const resultsContainer = document.getElementById('resultsContainer');
+      resultsContainer.classList.remove('hidden');
+      resultsContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    /**
+     * [결과 4] 12자 안팎의 훅 문장 생성 로직
+     */
+    function generateHookLine(purpose, tone, product, company) {
+      if (purpose === '채용') {
+        return applyTone(
+          tone,
+          '함께 미래를 그릴 동료 모집',
+          '당신과 함께 자라는 우리의 내일',
+          '새로운 기준을 함께 만들 인재'
+        );
+      }
+      if (purpose === '회사 소개') {
+        return applyTone(
+          tone,
+          '기본에 충실한 정직한 기업',
+          '당신의 일상을 바꾸는 든든한 파트너',
+          '신뢰로 증명하는 업계의 새 기준'
+        );
+      }
+      if (purpose === '박람회·영업') {
+        return applyTone(
+          tone,
+          '현장이 먼저 선택한 솔루션',
+          '함께 성장할 비즈니스 파트너',
+          '비즈니스 효율을 높이는 핵심 제안'
+        );
+      }
+      // 기본: 제품 홍보
+      return applyTone(
+        tone,
+        '일상을 바꾸는 가장 쉬운 선택',
+        '매일의 생활이 기분 좋게 달라져요',
+        '본질에 집중한 정교한 솔루션'
+      );
+    }
+
+    /**
+     * [결과 1] 30초 숏폼 대본 4장면 생성 로직
+     */
+    function generateShortFormScenes(data) {
+      const { industry, company, product, feat1, feat2, feat3, target, purpose, tone } = data;
+
+      // 장면 1: 시선 집중 (0~7초)
+      const s1 = {
+        time: '장면 1\n(0~7초)',
+        visual: `싱그러운 초록빛 오브제와 깔끔한 화이트 공간이 어우러진 감각적인 오프닝 클로즈업 화면`,
+        subtitle: purpose === '채용'
+          ? `${company}와 함께할 인재를 찾습니다`
+          : `${target}을 위한 새로운 선택`,
+        narration: applyTone(
+          tone,
+          `${target}이라면 주목해 주세요. ${industry} 분야의 ${company}입니다.`,
+          `매일 마주하는 일상, ${target}의 마음을 담아 ${attachJosa(company, '이/가')} 준비했습니다.`,
+          `${industry} 분야의 새로운 기준을 제시하는 ${company}의 솔루션을 소개합니다.`
+        )
+      };
+
+      // 장면 2: 핵심 특징 1 & 2 소개 (7~16초)
+      const s2 = {
+        time: '장면 2\n(7~16초)',
+        visual: `정돈된 작업·연구 환경에서 핵심 기술을 구현하는 과정과 ${product}의 외관·디테일 컷`,
+        subtitle: `핵심 포인트: ${feat1}`,
+        narration: applyTone(
+          tone,
+          `${attachJosa(product, '은/는')} ${attachJosa(feat1, '으로/로')} 만듭니다. 여기에 ${attachJosa(feat2, '을/를')} 더했습니다.`,
+          `더 나은 가치를 전하기 위해 ${attachJosa(feat1, '을/를')} 담고, ${attachJosa(feat2, '으로/로')} 정성을 다했습니다.`,
+          `${product}의 핵심 경쟁력은 ${feat1}에 있습니다. 또한 ${attachJosa(feat2, '을/를')} 통해 완성도를 높였습니다.`
+        )
+      };
+
+      // 장면 3: 핵심 특징 3 및 신뢰 포인트 (16~24초)
+      const s3 = {
+        time: '장면 3\n(16~24초)',
+        visual: purpose === '채용'
+          ? `밝고 쾌적한 오피스에서 구성원들이 함께 소통하며 협업하는 모습`
+          : `자연광이 들어오는 깔끔한 공간에서 ${attachJosa(product, '을/를')} 실제로 활용하는 안정감 있는 모습`,
+        subtitle: `${feat3}`,
+        narration: applyTone(
+          tone,
+          `무엇보다 ${feat3}까지 꼼꼼하게 챙겼습니다.`,
+          `안심하고 선택하실 수 있도록 ${feat3} 부분도 세심하게 준비했어요.`,
+          `철저한 기준 아래 ${feat3}까지 구현하여 실사용자의 신뢰도를 높였습니다.`
+        )
+      };
+
+      // 장면 4: 행동 유도(CTA) (24~30초)
+      let ctaSub = `${company} · ${product}`;
+      let ctaNarr = '';
+      if (purpose === '채용') {
+        ctaSub = `${company} 채용 진행 중`;
+        ctaNarr = applyTone(
+          tone,
+          `지금 ${company}에서 함께 성장할 분을 기다립니다. 자세한 내용은 프로필 링크를 확인하세요.`,
+          `사람과 가치를 생각하는 ${company}의 여정에 함께해 주세요. 지원을 기다리고 있겠습니다.`,
+          `${industry}의 미래를 함께 만들어갈 역량 있는 분들의 많은 관심과 지원 바랍니다.`
+        );
+      } else if (purpose === '박람회·영업') {
+        ctaSub = `파트너십 및 도입 문의 환영`;
+        ctaNarr = applyTone(
+          tone,
+          `${company}의 ${product}, 지금 바로 상담해 보세요.`,
+          `함께 성장할 파트너를 기다립니다. 편하게 문의해 주세요.`,
+          `비즈니스 협업 및 제품·서비스 도입 문의는 ${company} 공식 채널을 통해 안내받으실 수 있습니다.`
+        );
+      } else {
+        ctaSub = `지금 ${product} 만나보기`;
+        ctaNarr = applyTone(
+          tone,
+          `일상을 바꾸는 해답, ${company} ${attachJosa(product, '을/를')} 지금 확인해 보세요.`,
+          `오늘부터 ${product}과 함께 기분 좋은 변화를 시작해 보세요.`,
+          `${attachJosa(company, '이/가')} 제안하는 ${product}의 더 자세한 정보는 공식 채널에서 확인하실 수 있습니다.`
+        );
+      }
+
+      const s4 = {
+        time: '장면 4\n(24~30초)',
+        visual: `화이트와 짙은 녹색 톤의 깔끔한 배경 중앙에 놓인 ${product}과 자연 잎사귀 오브제 엔딩 컷`,
+        subtitle: ctaSub,
+        narration: ctaNarr
+      };
+
+      return [s1, s2, s3, s4];
+    }
+
+    /**
+     * [결과 1] 테이블 렌더링
+     */
+    function renderScriptTable(scenes) {
+      const tbody = document.getElementById('scriptTableBody');
+      tbody.innerHTML = '';
+      scenes.forEach(scene => {
+        const tr = document.createElement('tr');
+        tr.className = 'hover:bg-forest-50/40 transition-colors';
+        tr.innerHTML = `
+          <td class="py-3.5 px-3 sm:px-4 font-bold text-forest-800 whitespace-pre-line align-top bg-gray-50/60">${escapeHtml(scene.time)}</td>
+          <td class="py-3.5 px-3 sm:px-4 align-top">${escapeHtml(scene.visual)}</td>
+          <td class="py-3.5 px-3 sm:px-4 font-semibold text-forest-700 align-top">${escapeHtml(scene.subtitle)}</td>
+          <td class="py-3.5 px-3 sm:px-4 align-top">${escapeHtml(scene.narration)}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    /**
+     * [결과 2] 이미지 생성 프롬프트 4개 생성 (9:16 세로, 글자·로고 제외 조건 명시)
+     */
+    function generateImagePrompts(data) {
+      const { industry, product, feat1, feat2, purpose } = data;
+      const constraint = '9:16 vertical aspect ratio, strictly no text, no letters, no logos, no watermarks, no typography (9:16 세로 비율, 글자·로고·워터마크 절대 포함 금지)';
+
+      return [
+        {
+          cut: '컷 1 (도입부 · 시선 집중 오프닝)',
+          text: `Minimalist aesthetic photography of fresh deep green botanical leaves and pure morning light on a clean bright white architectural surface, calm and trustworthy mood, shallow depth of field, photorealistic, ${constraint}.`
+        },
+        {
+          cut: '컷 2 (핵심 가치 · 전문성과 기술 무드)',
+          text: `Clean modern workspace and studio scene symbolizing ${industry} and ${feat1}, pristine white and deep forest green color palette, soft diffused natural studio lighting, refined details, photorealistic, ${constraint}.`
+        },
+        {
+          cut: '컷 3 (제품/서비스 활용 · 감성 연출)',
+          text: purpose === '채용'
+            ? `Bright, eco-friendly modern office workspace with indoor green plants, diverse team members collaborating warmly in natural daylight, inspiring and trustworthy atmosphere, photorealistic, ${constraint}.`
+            : `Sleek unbranded minimal product presentation placed on a smooth natural stone pedestal surrounded by subtle green foliage and soft natural shadows, symbolizing ${product} and ${feat2}, high-end commercial photography, ${constraint}.`
+        },
+        {
+          cut: '컷 4 (엔딩 · 신뢰와 여운)',
+          text: `Artistic overhead flat-lay of clean white ceramic textures, pure water droplets, and deep forest green natural accents on a bright minimalist surface, serene and professional brand mood, studio lighting, photorealistic, ${constraint}.`
+        }
+      ];
+    }
+
+    /**
+     * [결과 2] 이미지 프롬프트 카드 렌더링
+     */
+    function renderImagePrompts(prompts) {
+      const container = document.getElementById('imagePromptsContainer');
+      container.innerHTML = '';
+
+      prompts.forEach((item, index) => {
+        const promptId = `imgPromptText_${index}`;
+        const card = document.createElement('div');
+        card.className = 'bg-gray-50 border border-gray-200 rounded-xl p-4 sm:p-5 flex flex-col gap-3';
+        card.innerHTML = `
+          <div class="flex items-center justify-between gap-2">
+            <span class="font-bold text-base sm:text-lg text-forest-800">${escapeHtml(item.cut)}</span>
+            <button type="button" onclick="copyElementText('${promptId}', this)"
+              class="copy-btn shrink-0 bg-white hover:bg-forest-100 text-forest-700 border border-forest-700 font-bold text-sm px-3.5 py-1.5 rounded-lg transition cursor-pointer">
+              복사
+            </button>
+          </div>
+          <p id="${promptId}" class="text-sm sm:text-base text-gray-800 bg-white p-3.5 rounded-lg border border-gray-200 leading-relaxed select-all">${escapeHtml(item.text)}</p>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    /**
+     * [결과 3] SNS 문구 생성 (제목 3개, 본문 1개, 해시태그 10개)
+     * 금지 규칙 준수: 확인되지 않은 인증·수상·수치 제외, 가격·연락처는 [직접 입력] 표기
+     */
+    function generateSnsContent(data) {
+      const { industry, company, product, feat1, feat2, feat3, target, purpose, tone } = data;
+
+      // 제목 3개
+      const titles = [
+        `1. [${company}] ${target}을 위한 ${product} 이야기`,
+        `2. 본질에 집중한 선택, ${feat1}의 가치`,
+        `3. ${purpose === '채용' ? `${company}와 함께 성장할 분을 찾습니다` : `기본에 충실한 ${industry}, ${attachJosa(product, '으로/로')} 만나보세요`}`
+      ];
+
+      // 본문 1개 (말투 반영)
+      let intro = '';
+      let outro = '';
+      if (tone === '담백하게') {
+        intro = `안녕하세요, ${company}입니다.\n${target}을 위해 준비한 '${product}'을 소개합니다.`;
+        outro = `불필요한 요소는 덜어내고 핵심 가치에 집중했습니다.\n궁금한 점은 아래 연락처로 편하게 문의해 주세요.`;
+      } else if (tone === '따뜻하게') {
+        intro = `안녕하세요, 기분 좋은 일상을 제안하는 ${company}입니다. 🌿\n매일의 생활이 더 편안해지길 바라는 마음으로 '${product}'을 준비했어요.`;
+        outro = `${target}의 소중한 일상에 든든한 도움이 되길 바랍니다.\n자세한 안내가 필요하시면 언제든 문의해 주세요!`;
+      } else {
+        intro = `[${company} | ${industry}]\n${target}의 니즈를 반영하여 설계한 '${product}'을 소개합니다.`;
+        outro = `기획부터 완성까지 원칙을 지키며 준비했습니다.\n도입 및 상세 문의는 아래 공식 안내처를 이용해 주시기 바랍니다.`;
+      }
+
+      const body = `${intro}\n\n` +
+        `✔ 핵심 포인트 3가지\n` +
+        `• ${feat1}\n` +
+        `• ${feat2}\n` +
+        `• ${feat3}\n\n` +
+        `${outro}\n\n` +
+        `📌 안내 사항\n` +
+        `• 가격: [직접 입력]\n` +
+        `• 문의/연락처: [직접 입력]`;
+
+      // 해시태그 10개 (공백 제거한 키워드 기반)
+      const cleanCompany = company.replace(/[\s()주]+/g, '');
+      const cleanProduct = product.replace(/\s+/g, '');
+      const cleanIndustry = industry.split(/[\s,·]+/)[0] || '비즈니스';
+
+      const hashtags = [
+        `#${cleanCompany}`,
+        `#${cleanProduct}`,
+        `#${cleanIndustry}`,
+        '#브랜드스토리',
+        '#홍보콘텐츠',
+        '#신제품소개',
+        '#가치소비',
+        '#일상변화',
+        purpose === '채용' ? '#채용공고' : '#추천템',
+        purpose === '박람회·영업' ? '#비즈니스문의' : '#라이프스타일'
+      ];
+
+      return { titles, body, hashtags };
+    }
+
+    /**
+     * [결과 3] SNS 문구 렌더링
+     */
+    function renderSnsContent(snsData) {
+      const titlesList = document.getElementById('snsTitlesList');
+      titlesList.innerHTML = '';
+      snsData.titles.forEach(t => {
+        const li = document.createElement('li');
+        li.textContent = t;
+        titlesList.appendChild(li);
+      });
+
+      document.getElementById('snsBodyText').textContent = snsData.body;
+      document.getElementById('snsHashtagsText').textContent = snsData.hashtags.join(' ');
+    }
+
+    /**
+     * XSS 방지용 HTML 이스케이프 헬퍼
+     */
+    function escapeHtml(str) {
+      const div = document.createElement('div');
+      div.textContent = str;
+      return div.innerHTML;
+    }
+  </script>
+</body>
+</html>
