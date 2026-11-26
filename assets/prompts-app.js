@@ -30,6 +30,7 @@
   var TARGETS = {
     chatgpt: { cls: 'gpt',   label: 'ChatGPT로 보내기', icon: 'gpt' },
     gemini:  { cls: 'gem',   label: 'Gemini로 보내기',  icon: 'gem',  url: 'https://gemini.google.com/app' },
+    notebook:{ cls: 'gem',   label: '제미나이 노트북 열기', icon: 'gem', url: 'https://notebook.google.com' },
     claude:  { cls: 'claude', label: '클로드 열기',      icon: 'gem',  url: 'https://claude.ai/new' },
     vstory:  { cls: 'vstory', label: 'vStory 열기',      icon: 'flow', url: 'https://vstory.io' },
     flow:    { cls: 'flow',  label: '복사 후 Google Flow 열기', icon: 'flow', url: 'https://labs.google/fx/tools/flow' }
@@ -160,6 +161,17 @@
     return h;
   }
 
+  /* 4교시(제미나이 노트북) 섹션 머리 — 화면 3단 구조 안내 */
+  var P4_NOTICE =
+    '<div class="notice p4n">' +
+      '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16.5v.5"/></svg>' +
+      '<div><b>제미나이 노트북은 화면이 세 칸입니다 — 왼쪽 → 가운데 → 오른쪽 순서로만 진행합니다.</b><br>' +
+        '<b>①</b> 왼쪽 [소스]에 회사 자료(PDF·웹주소) 먼저 추가 → ' +
+        '<b>②</b> 가운데 [채팅]에서 요약 확인·질문 → ' +
+        '<b>③</b> 오른쪽 [스튜디오]에서 N1·N2 실행' +
+        '<span class="p4warn">소스 없이 오른쪽 [스튜디오]만 먼저 쓰면 작동하지 않습니다.</span></div>' +
+    '</div>';
+
   var html = '';
   CATS.forEach(function (c) {
     var items = DATA.filter(function (p) { return p.cat === c.key; });
@@ -167,6 +179,7 @@
     html += '<section class="pgroup" data-group="' + c.key + '">' +
       '<div class="pgroup-h"><h2>' + esc(c.name) + '</h2><span class="rule"></span>' +
       '<span class="c">' + items.length + '종</span></div>' +
+      (c.key === 'p4' ? P4_NOTICE : '') +
       items.map(cardHTML).join('') + '</section>';
   });
   if (listEl) listEl.innerHTML = html;
@@ -258,6 +271,7 @@
     chatgpt: '프롬프트를 복사했습니다. ChatGPT 창에 붙여넣기(Ctrl+V) 해 주세요.',
     gem: '복사되었습니다. Gemini 입력창에 붙여넣기(Ctrl+V) 해 주세요.',
     gemini: '복사되었습니다. Gemini 입력창에 붙여넣기(Ctrl+V) 해 주세요.',
+    notebook: '복사되었습니다. 제미나이 노트북에서 왼쪽 소스를 먼저 추가한 뒤, 오른쪽 스튜디오 칸에 붙여넣기(Ctrl+V) 해 주세요.',
     claude: '복사되었습니다. 클로드 입력창에 붙여넣기(Ctrl+V) 해 주세요.',
     vstory: '복사되었습니다. vStory 요청 사항 칸에 붙여넣기(Ctrl+V) 해 주세요.',
     flow: '복사되었습니다. Google Flow가 열리면 프롬프트 칸에 붙여넣기(Ctrl+V) 해 주세요.'
