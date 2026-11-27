@@ -753,15 +753,11 @@ body.has-jb .panel[id],body.has-jb #p4src{
   .has-jb .toolbar{top:calc(var(--head) + var(--round) + var(--jb))}
 }
 @media (max-width:720px){
-  :root{ --jb:42px; }
-  .jb-in{padding:0 16px;gap:6px}
+  /* 폰에서는 다섯 개를 두 줄로 펼쳐 한눈에 보이게 한다 */
+  :root{ --jb:76px; }
+  .jb-in{padding:6px 14px;gap:6px;height:auto;min-height:var(--jb);flex-wrap:wrap;overflow:visible}
   .jb-l{display:none}
   .jb{font-size:12px;height:29px;padding:0 10px;gap:5px}
-  /* 오른쪽이 잘려 보이지 않게 — 옆으로 넘길 수 있다는 표시 */
-  .jumpbar::after{
-    content:"";position:absolute;top:0;right:0;bottom:0;width:30px;pointer-events:none;
-    background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,.96));
-  }
   /* 폰에서는 '프롬프트 바로가기'를 맨 앞에 둔다 */
   .jb.cta{order:-1}
   /* 폰에서는 화면을 넓게 쓰려고 도구 바를 흐름 안에 둔다 */
