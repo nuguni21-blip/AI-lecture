@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="assets/style.css">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230e6244'/%3E%3Cpath d='M32 50c0-12 6-20 16-24-2 14-8 22-16 24z' fill='%2387e8bd'/%3E%3Cpath d='M32 50C32 38 26 30 16 26c2 14 8 22 16 24z' fill='%23ffffff' opacity='.85'/%3E%3C/svg%3E">
 </head>
-<body>
+<body class="has-jb">
 <a class="skip" href="#main">본문 바로가기</a>
 
 <!-- ================= HEADER ================= -->
@@ -69,6 +69,19 @@
     <a href="https://chatgpt1st.co.kr" target="_blank" rel="noopener">한국강사교육협회 홈페이지</a>
   </nav>
 </header>
+
+<!-- ================= 바로가기 (헤더 바로 아래 고정) ================= -->
+<nav class="jumpbar" id="jumpbar" aria-label="페이지 바로가기">
+  <div class="jb-in">
+    <span class="jb-l">바로가기</span>
+    <a class="jb" href="#samples">교시별 견본</a>
+    <a class="jb" href="#s1">1교시</a>
+    <a class="jb" href="#s2">2교시</a>
+    <a class="jb" href="#s3">3교시</a>
+    <a class="jb" href="#pdf">자료·PDF</a>
+    <a class="jb cta" href="prompts.html">프롬프트 바로가기<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13"/><path d="m13 6 6 6-6 6"/></svg></a>
+  </div>
+</nav>
 
 <!-- ================= 협회 홈페이지 (페이지 맨 앞) ================= -->
 <section class="koea" aria-label="한국강사교육협회 공식 홈페이지">
@@ -471,8 +484,13 @@
       <p>바로 보기는 새 창으로 열리고, 내려받기는 내 기기에 저장됩니다. 교육이 끝난 뒤에도 다시 보실 수 있습니다.</p>
     </div>
 
+    <div class="dl-sub" id="samples">
+      <b>교시별 견본</b>
+      <span>수업에서 보여 주는 결과물 — 눌러서 바로 재생·실행합니다.</span>
+    </div>
+
     <div class="dl-grid">
-      <article class="dl wide">
+      <article id="s1" class="dl wide">
         <div class="dl-top">
           <span class="fmt mp4">MP4</span>
           <div>
@@ -520,7 +538,7 @@
           만든 사진 4장을 이어 붙이는 문장은 <a href="prompts.html#K8">K8</a>에 있습니다.</p>
       </article>
 
-      <article class="dl">
+      <article id="s2" class="dl">
         <div class="dl-top">
           <span class="fmt html">HTML</span>
           <div>
@@ -573,7 +591,7 @@
         </div>
       </article>
 
-      <article class="dl">
+      <article id="s3" class="dl">
         <div class="dl-top">
           <span class="fmt html">HTML</span>
           <div>
@@ -616,15 +634,20 @@
         </div>
       </article>
 
-      <article class="dl wide">
+      <div class="dl-sub" id="pdf">
+        <b>자료 · PDF · 교안</b>
+        <span>슬라이드·통합교안·1교시 교안 — 내려받아 보관하세요.</span>
+      </div>
+
+      <article id="pdfcard" class="dl wide">
         <div class="dl-top">
           <span class="fmt pdf">PDF</span>
           <div>
             <h3>2회차 강의 슬라이드</h3>
-            <div class="meta">1.8 MB · PDF · 62장</div>
+            <div class="meta">2.2 MB · PDF · 63장</div>
           </div>
         </div>
-        <p>11. 27. 2회차에 띄우는 슬라이드 62장입니다. 교시별 화면과 프롬프트, 주의사항을 순서대로 담아
+        <p>11. 27. 2회차에 띄우는 슬라이드 63장입니다. 교시별 화면과 프롬프트, 주의사항을 순서대로 담아
           수업 뒤 복습용으로도 쓰실 수 있습니다.</p>
         <div class="acts">
           <a class="btn btn-line" href="files/농진원_1127_2회차_강의슬라이드.pdf" target="_blank" rel="noopener">
