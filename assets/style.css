@@ -671,6 +671,10 @@ html{scroll-padding-top:calc(var(--head) + var(--round) + 10px)}
 /* ---------- 자료실: 숏폼 예시 영상 ---------- */
 .fmt.mp4{background:linear-gradient(145deg,#243a63,#3f63a8)}
 .vid-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:16px}
+.vid.feat{grid-column:1/-1}
+.vid img.pthumb{display:block;flex:none;width:auto;height:clamp(300px,40vh,400px);max-width:100%;margin:0 auto;background:#fff;border:1px solid var(--line-2);border-radius:10px;box-shadow:0 12px 28px -22px rgba(4,36,26,.9)}
+.vid figcaption .vbtns{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.vid figcaption .vbtns .btn{margin-top:0}
 .vid{margin:0;min-width:0;display:flex;gap:14px;align-items:flex-start;background:#f7fbf9;border:1px solid var(--line-2);border-radius:13px;padding:12px}
 .vid video{display:block;flex:none;width:auto;height:clamp(300px,40vh,400px);max-width:100%;margin:0 auto;background:#04241a;border-radius:10px;box-shadow:0 12px 28px -22px rgba(4,36,26,.9)}
 .vid figcaption{display:flex;flex-direction:column;gap:3px;min-width:0;flex:1 1 auto;padding-top:2px}
@@ -695,6 +699,7 @@ html{scroll-padding-top:calc(var(--head) + var(--round) + 10px)}
   .cutlab-note{font-size:12.3px;padding:10px 12px}
   .vid{flex-direction:column;padding:10px}
   .vid video{height:auto;width:100%;max-height:70vh}
+  .vid img.pthumb{height:auto;width:100%;max-height:70vh}
 }
 @media print{
   .cutlab{background:#fff}
@@ -739,7 +744,7 @@ html{scroll-padding-top:calc(var(--head) + var(--round) + 10px)}
 
 /* 바로가기 대상이 고정 바에 가리지 않게 */
 body.has-jb #cut4,body.has-jb .pgroup,body.has-jb #samples,body.has-jb #s1,body.has-jb #s2,
-body.has-jb #s3,body.has-jb #pdf,body.has-jb .dl-sub,body.has-jb .dl[id],body.has-jb .section[id],
+body.has-jb #s3,body.has-jb #s4,body.has-jb #pdf,body.has-jb .dl-sub,body.has-jb .dl[id],body.has-jb .section[id],
 body.has-jb .panel[id],body.has-jb #p4src{
   scroll-margin-top:calc(var(--jb) + 8px);
 }
