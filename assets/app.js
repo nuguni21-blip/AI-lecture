@@ -17,6 +17,35 @@
     });
   }
 
+  // 바로가기 바 — 지금 보고 있는 항목을 표시
+  var jbLinks = [].slice.call(document.querySelectorAll('.jumpbar .jb[href^="#"]'));
+  if (jbLinks.length) {
+    var raf = false;
+    var stackH = function () {
+      var h = 0;
+      ['.site-head', '.jumpbar'].forEach(function (sel) {
+        var el = document.querySelector(sel);
+        if (el && window.getComputedStyle(el).position === 'sticky') h += el.getBoundingClientRect().height;
+      });
+      return h;
+    };
+    var syncJb = function () {
+      raf = false;
+      var line = stackH() + 60, cur = null;
+      jbLinks.forEach(function (a) {
+        var el = document.getElementById(a.getAttribute('href').slice(1));
+        if (el && el.getBoundingClientRect().top <= line) cur = a;
+      });
+      if (window.pageYOffset < 40) cur = null;
+      jbLinks.forEach(function (a) { a.classList.toggle('on', a === cur); });
+    };
+    window.addEventListener('scroll', function () {
+      if (!raf) { raf = true; window.requestAnimationFrame(syncJb); }
+    }, { passive: true });
+    window.addEventListener('resize', syncJb);
+    syncJb();
+  }
+
   // 현재 보고 있는 섹션을 메뉴에 표시 (data-spy 목록에서 자동 수집)
   var links = [].slice.call(document.querySelectorAll('.nav-link[data-spy]'));
   if (!links.length || !('IntersectionObserver' in window)) return;

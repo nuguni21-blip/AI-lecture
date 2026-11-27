@@ -172,14 +172,61 @@
         '<span class="p4warn">소스 없이 오른쪽 [스튜디오]만 먼저 쓰면 작동하지 않습니다.</span></div>' +
     '</div>';
 
+  /* 4교시 — 노트북에 먼저 넣을 '실습용 샘플 소스' 카드 */
+  var ICON_DL = '<path d="M12 4v11"/><path d="m7 11 5 5 5-5"/><path d="M5 20h14"/>';
+  var ICON_OUT = '<path d="M14 4h5v5"/><path d="M19 4 11 12"/><path d="M19 14v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h4"/>';
+  var P4_SOURCE =
+    '<div class="psrc" id="p4src">' +
+      '<div class="psrc-h">' +
+        '<span class="psrc-badge">4교시 준비물</span>' +
+        '<div><h3>실습용 샘플 소스 — 노트북 왼쪽 [+ 소스 추가]에 먼저 넣으세요</h3>' +
+          '<p>우리 회사 자료가 없어도 그대로 실습할 수 있게 준비했습니다. 아래 <b>1번 PDF</b>나 <b>2번 웹주소</b> 중 하나만 넣어도 소스가 됩니다(2~5개 권장).' +
+          ' 우리 회사 소개서·브로슈어가 있으면 그것을 쓰세요.</p></div>' +
+      '</div>' +
+      '<ol class="psrc-list">' +
+        '<li class="psrc-item">' +
+          '<span class="psrc-n">1</span>' +
+          '<div class="psrc-t"><b>샘플 회사소개서 PDF (2쪽)</b>' +
+            '<span>순창 바른발효농장 — 회사 개요 · 제품 3종 · 제조 공정 · 인증 · 연락처 (교육용 가상 기업)</span></div>' +
+          '<div class="psrc-acts">' +
+            '<a class="cpbtn pdf" href="files/%EC%88%9C%EC%B0%BD_%EB%B0%94%EB%A5%B8%EB%B0%9C%ED%9A%A8%EB%86%8D%EC%9E%A5_%ED%9A%8C%EC%82%AC%EC%86%8C%EA%B0%9C%EC%84%9C.pdf" download>' +
+              '<svg viewBox="0 0 24 24" aria-hidden="true">' + ICON_DL + '</svg>PDF 내려받기</a>' +
+            '<a class="cpbtn ghost" href="files/%EC%88%9C%EC%B0%BD_%EB%B0%94%EB%A5%B8%EB%B0%9C%ED%9A%A8%EB%86%8D%EC%9E%A5_%ED%9A%8C%EC%82%AC%EC%86%8C%EA%B0%9C%EC%84%9C.pdf" target="_blank" rel="noopener">' +
+              '<svg viewBox="0 0 24 24" aria-hidden="true">' + ICON_OUT + '</svg>미리 보기</a>' +
+          '</div>' +
+        '</li>' +
+        '<li class="psrc-item">' +
+          '<span class="psrc-n">2</span>' +
+          '<div class="psrc-t"><b>웹사이트 주소 넣기</b>' +
+            '<span>노트북 [소스 추가] → [웹사이트]에서 주소를 붙여넣습니다. 주소를 복사해 두고 쓰세요.</span></div>' +
+          '<div class="psrc-acts">' +
+            '<button class="cpbtn" data-cp="https://earnest-choux-e0530c.netlify.app/" data-cp-name="하이에듀 예시 사이트 주소">' +
+              '하이에듀 예시 주소 복사</button>' +
+            '<button class="cpbtn" data-cp="https://www.koat.or.kr" data-cp-name="한국농업기술진흥원 주소">' +
+              '농진원 주소 복사</button>' +
+          '</div>' +
+        '</li>' +
+        '<li class="psrc-item">' +
+          '<span class="psrc-n">3</span>' +
+          '<div class="psrc-t"><b>웹에서 검색(Discover) 키워드</b>' +
+            '<span>노트북 [소스 추가] → [웹에서 검색]에 붙여넣으면 관련 자료를 찾아 소스로 넣습니다.</span></div>' +
+          '<div class="psrc-acts">' +
+            '<button class="cpbtn" data-cp="전북 그린바이오 산업 현황 농식품부 농진원" data-cp-name="검색 키워드">' +
+              '키워드 복사</button>' +
+          '</div>' +
+        '</li>' +
+      '</ol>' +
+      '<p class="psrc-foot">소스를 넣으면 가운데 [채팅]에 요약이 생깁니다. 요약이 나온 뒤 오른쪽 [스튜디오]에서 <b>N1 동영상 개요</b>·<b>N2 슬라이드</b>를 실행하세요.</p>' +
+    '</div>';
+
   var html = '';
   CATS.forEach(function (c) {
     var items = DATA.filter(function (p) { return p.cat === c.key; });
     if (!items.length) return;
-    html += '<section class="pgroup" data-group="' + c.key + '">' +
+    html += '<section class="pgroup" id="grp-' + esc(c.key) + '" data-group="' + c.key + '">' +
       '<div class="pgroup-h"><h2>' + esc(c.name) + '</h2><span class="rule"></span>' +
       '<span class="c">' + items.length + '종</span></div>' +
-      (c.key === 'p4' ? P4_NOTICE : '') +
+      (c.key === 'p4' ? P4_NOTICE + P4_SOURCE : '') +
       items.map(cardHTML).join('') + '</section>';
   });
   if (listEl) listEl.innerHTML = html;
@@ -281,6 +328,21 @@
     var btn = e.target.closest('button, a.abtn');
     if (!btn) return;
 
+    /* 실습 소스 카드 — 주소·키워드 복사 */
+    if (btn.hasAttribute('data-cp')) {
+      var cpt = btn.getAttribute('data-cp');
+      var cpn = btn.getAttribute('data-cp-name') || '주소';
+      copy(cpt).then(function (ok) {
+        if (ok) {
+          flash(btn, '복사됨');
+          toast(cpn + '를 복사했습니다. 제미나이 노트북 소스 칸에 붙여넣기(Ctrl+V) 하세요.');
+        } else {
+          toast('복사가 막혔습니다. 주소를 길게 눌러 직접 선택해 주세요.', true);
+        }
+      });
+      return;
+    }
+
     /* 카드 안 작은 복사 (원문 / 변형) */
     if (btn.hasAttribute('data-mini')) {
       var mp = get(btn.getAttribute('data-mini'));
@@ -335,14 +397,79 @@
 
   apply();
 
+  /* ---------- 교시 바로가기 바 ---------- */
+  /* 화면 위에 붙어 있는 바(헤더·바로가기·도구 바)의 높이를 더해 목표물이 가리지 않게 한다 */
+  function stickyStack() {
+    var off = 0;
+    ['.site-head', '.jumpbar', '.toolbar'].forEach(function (sel) {
+      var el = document.querySelector(sel);
+      if (!el) return;
+      if (window.getComputedStyle(el).position === 'sticky') off += el.getBoundingClientRect().height;
+    });
+    return off + 14;
+  }
+  function smoothTo(el) {
+    var y = el.getBoundingClientRect().top + window.pageYOffset - stickyStack();
+    window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
+  }
+
+  var jbLinks = [].slice.call(document.querySelectorAll('.jumpbar .jb[href^="#"]'));
+  var jbTargets = jbLinks.map(function (a) {
+    return { a: a, el: document.getElementById(a.getAttribute('href').slice(1)) };
+  }).filter(function (o) { return !!o.el; });
+
+  function showAll() {
+    state.cat = 'all';
+    if (q) q.value = '';
+    state.q = '';
+    tabs.forEach(function (t, i) {
+      var on = t.getAttribute('data-cat') === 'all';
+      t.classList.toggle('on', on);
+      t.setAttribute('aria-selected', on ? 'true' : 'false');
+    });
+    apply();
+  }
+
+  jbLinks.forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      var id = a.getAttribute('href').slice(1);
+      var target = document.getElementById(id);
+      if (!target) return;
+      e.preventDefault();
+      userMoved = true;
+      if (target.classList.contains('pgroup') && target.style.display === 'none') showAll();
+      if (target.classList.contains('pcard') && target.style.display === 'none') showAll();
+      smoothTo(target);
+      if (history.replaceState) history.replaceState(null, '', '#' + id);
+      else location.hash = id;
+    });
+  });
+
+  /* 지금 보고 있는 교시를 바로가기 바에 표시 */
+  var jbRaf = false;
+  function syncJb() {
+    jbRaf = false;
+    var line = stickyStack() + 56, cur = null;
+    jbTargets.forEach(function (o) {
+      if (o.el.style.display === 'none') return;
+      if (o.el.getBoundingClientRect().top <= line) cur = o.a;
+    });
+    if (window.pageYOffset < 40) cur = null;
+    jbLinks.forEach(function (a) { a.classList.toggle('on', a === cur); });
+  }
+  window.addEventListener('scroll', function () {
+    if (!jbRaf) { jbRaf = true; window.requestAnimationFrame(syncJb); }
+  }, { passive: true });
+  window.addEventListener('resize', syncJb);
+  syncJb();
+
   /* #K4 처럼 해시로 들어오면 카드가 그려진 뒤 그 자리로 이동
      (카드가 스크립트로 그려지므로 브라우저 기본 앵커 이동이 실패한다) */
   function jumpToHash(smooth) {
     if (!location.hash || location.hash.length < 2) return;
     var target = document.getElementById(decodeURIComponent(location.hash.slice(1)));
     if (!target) return;
-    var head = document.querySelector('.site-head');
-    var off = (head ? head.getBoundingClientRect().height : 0) + 14;
+    var off = stickyStack();
     var y = target.getBoundingClientRect().top + window.pageYOffset - off;
     var root = document.documentElement;
     var prev = root.style.scrollBehavior;
@@ -351,9 +478,23 @@
     if (!smooth) root.style.scrollBehavior = prev;
   }
   jumpToHash(false);
+  /* 사진·영상이 늦게 자리를 잡아 목표가 밀리는 경우를 한 번 더 맞춘다 */
+  var userMoved = false;
+  ['wheel', 'touchmove', 'pointerdown', 'keydown'].forEach(function (ev) {
+    window.addEventListener(ev, function () { userMoved = true; }, { passive: true, once: true });
+  });
+  function ensureHash() {
+    if (userMoved || !location.hash || location.hash.length < 2) return;
+    var t = document.getElementById(decodeURIComponent(location.hash.slice(1)));
+    if (!t) return;
+    if (Math.abs(t.getBoundingClientRect().top - stickyStack()) > 24) jumpToHash(false);
+  }
   window.addEventListener('load', function () {
     setTimeout(function () { jumpToHash(false); }, 60);
     setTimeout(function () { jumpToHash(false); }, 320);
+    setTimeout(ensureHash, 700);
+    setTimeout(ensureHash, 1400);
+    setTimeout(ensureHash, 2400);
   });
   window.addEventListener('hashchange', function () { setTimeout(function () { jumpToHash(true); }, 40); });
 

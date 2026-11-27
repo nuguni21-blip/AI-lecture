@@ -700,3 +700,138 @@ html{scroll-padding-top:calc(var(--head) + var(--round) + 10px)}
   .cutlab{background:#fff}
   .cut{break-inside:avoid}
 }
+
+/* ==========================================================================
+   2회차 추가 — 교시 바로가기 바(상단 고정) · 4교시 실습 소스 카드
+   ========================================================================== */
+:root{ --jb:46px; }
+
+/* ---------- 교시 바로가기 바 ---------- */
+.jumpbar{
+  position:sticky;top:calc(var(--head) + var(--round));z-index:55;
+  background:rgba(255,255,255,.97);
+  -webkit-backdrop-filter:saturate(180%) blur(12px);backdrop-filter:saturate(180%) blur(12px);
+  border-bottom:1px solid var(--line);
+  box-shadow:0 10px 18px -18px rgba(8,55,38,.55);
+}
+.jb-in{
+  max-width:var(--maxw);margin:0 auto;padding:0 22px;height:var(--jb);
+  display:flex;align-items:center;gap:7px;
+  overflow-x:auto;overflow-y:hidden;scrollbar-width:none;-webkit-overflow-scrolling:touch;
+}
+.jb-in::-webkit-scrollbar{display:none}
+.jb-l{flex:none;font-size:9.5px;font-weight:900;letter-spacing:.12em;color:#8aa89a;text-transform:uppercase;margin-right:2px}
+.jb{
+  flex:none;display:inline-flex;align-items:center;gap:6px;height:30px;padding:0 12px;border-radius:999px;
+  border:1px solid var(--line);background:#fff;font-size:12.5px;font-weight:700;color:#3f5c50;
+  white-space:nowrap;text-decoration:none;line-height:1;letter-spacing:-.01em;
+  transition:border-color .15s,background .15s,color .15s;
+}
+.jb:hover{border-color:#a9d8c2;background:var(--emerald-soft);color:var(--green-800);text-decoration:none}
+.jb:focus-visible{outline:2px solid var(--emerald);outline-offset:2px}
+.jb .n{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:50%;
+  background:var(--green-700);color:#fff;font-size:10px;font-weight:800;flex:none;letter-spacing:0}
+.jb.on{background:var(--green-800);border-color:var(--green-800);color:#fff;box-shadow:0 6px 14px -12px rgba(8,55,38,.9)}
+.jb.on .n{background:rgba(255,255,255,.24);color:#fff}
+.jb.cta{background:var(--emerald-soft);border-color:#bfe6d2;color:var(--green-800);font-weight:800}
+.jb.cta:hover{background:#d3f0e2;border-color:#a9d8c2}
+.jb.cta svg{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+
+/* 바로가기 대상이 고정 바에 가리지 않게 */
+body.has-jb #cut4,body.has-jb .pgroup,body.has-jb #samples,body.has-jb #s1,body.has-jb #s2,
+body.has-jb #s3,body.has-jb #pdf,body.has-jb .dl-sub,body.has-jb .dl[id],body.has-jb .section[id],
+body.has-jb .panel[id],body.has-jb #p4src{
+  scroll-margin-top:calc(var(--jb) + 8px);
+}
+
+/* 도구 바(탭·검색)가 회차 바에 가리지 않게 — 헤더 높이에 맞춘다 */
+.toolbar{top:calc(var(--head) + var(--round))}
+/* 바로가기 바가 있는 페이지는 그 아래에 붙인다 */
+.has-jb .toolbar{top:calc(var(--head) + var(--round) + var(--jb))}
+
+@media (max-width:900px){
+  .has-jb .toolbar{top:calc(var(--head) + var(--round) + var(--jb))}
+}
+@media (max-width:720px){
+  :root{ --jb:42px; }
+  .jb-in{padding:0 16px;gap:6px}
+  .jb-l{display:none}
+  .jb{font-size:12px;height:29px;padding:0 10px;gap:5px}
+  /* 오른쪽이 잘려 보이지 않게 — 옆으로 넘길 수 있다는 표시 */
+  .jumpbar::after{
+    content:"";position:absolute;top:0;right:0;bottom:0;width:30px;pointer-events:none;
+    background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,.96));
+  }
+  /* 폰에서는 '프롬프트 바로가기'를 맨 앞에 둔다 */
+  .jb.cta{order:-1}
+  /* 폰에서는 화면을 넓게 쓰려고 도구 바를 흐름 안에 둔다 */
+  .has-jb .toolbar{position:static;top:auto}
+}
+@media print{
+  .jumpbar{display:none}
+}
+
+/* ---------- 4교시 실습 소스 카드 ---------- */
+.psrc{
+  background:linear-gradient(180deg,#f4fbf7 0%,#ffffff 62%);
+  border:1px solid #bfe6d2;border-left:3px solid var(--emerald);border-radius:14px;
+  padding:16px 18px 15px;margin:2px 0 4px;
+}
+.psrc-h{display:flex;gap:11px;align-items:flex-start}
+.psrc-badge{
+  flex:none;display:inline-flex;align-items:center;gap:5px;height:22px;padding:0 9px;border-radius:999px;
+  background:var(--green-800);color:#fff;font-size:10.5px;font-weight:800;letter-spacing:.02em;margin-top:2px;
+}
+.psrc-h h3{font-size:14.5px;font-weight:800;letter-spacing:-.03em;line-height:1.4;color:var(--green-900)}
+.psrc-h p{margin-top:5px;font-size:12.6px;color:#4f6f61;line-height:1.7}
+.psrc-h p b{color:var(--green-700);font-weight:800}
+.psrc-list{display:grid;gap:8px;margin-top:13px}
+.psrc-item{
+  display:flex;gap:10px;align-items:flex-start;flex-wrap:wrap;
+  background:#fff;border:1px solid var(--line);border-radius:11px;padding:10px 12px;
+}
+.psrc-n{
+  flex:none;width:20px;height:20px;border-radius:50%;background:var(--emerald-soft);color:var(--green-700);
+  font-size:11px;font-weight:900;display:grid;place-items:center;margin-top:1px;
+}
+.psrc-t{flex:1 1 250px;min-width:0}
+.psrc-t b{display:block;font-size:13px;font-weight:800;color:var(--ink);letter-spacing:-.02em;line-height:1.45}
+.psrc-t span{display:block;font-size:12px;color:var(--muted);line-height:1.6;margin-top:2px}
+.psrc-acts{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-left:30px;flex:0 1 auto}
+.cpbtn{
+  display:inline-flex;align-items:center;gap:5px;height:30px;padding:0 12px;border-radius:8px;
+  border:1px solid #cfe8db;background:#fff;font-size:12px;font-weight:800;color:var(--green-800);
+  text-decoration:none;line-height:1;white-space:nowrap;transition:border-color .15s,background .15s,color .15s;
+}
+.cpbtn:hover{border-color:#a9d8c2;background:var(--emerald-soft);text-decoration:none}
+.cpbtn:active{transform:translateY(1px)}
+.cpbtn.pdf{background:var(--green-800);border-color:var(--green-800);color:#fff}
+.cpbtn.pdf:hover{background:var(--green-700);border-color:var(--green-700);color:#fff}
+.cpbtn.ghost{background:#fff;color:#3f5c50;border-color:var(--line)}
+.cpbtn.done{background:#e7f6ef;border-color:#a9d8c2;color:var(--green-700)}
+.cpbtn svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:2.3;stroke-linecap:round;stroke-linejoin:round}
+.psrc-foot{margin-top:11px;padding-top:10px;border-top:1px dashed #d9ece2;font-size:12.2px;color:#5b7669;line-height:1.65}
+.psrc-foot b{color:var(--green-700);font-weight:800}
+
+@media (max-width:720px){
+  .psrc{padding:13px 13px 12px}
+  .psrc-h{flex-direction:column;gap:7px}
+  .psrc-badge{margin-top:0}
+  .psrc-h h3{font-size:13.5px}
+  .psrc-acts{margin-left:0;width:100%}
+  .cpbtn{flex:1 1 auto;justify-content:center;height:32px;font-size:12px}
+}
+
+/* ---------- 자료실 교시별 소제목 ---------- */
+.dl-sub{
+  grid-column:1/-1;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;
+  margin:26px 0 -2px;padding-bottom:9px;border-bottom:1px solid var(--line);
+}
+.dl-sub:first-child{margin-top:0}
+.dl-sub b{font-size:14.5px;font-weight:800;color:var(--green-800);letter-spacing:-.03em}
+.dl-sub span{font-size:12.2px;color:var(--muted)}
+@media (max-width:720px){
+  .dl-sub{margin:20px 0 0;gap:6px}
+  .dl-sub b{font-size:13.5px}
+  .dl-sub span{font-size:11.6px}
+}
